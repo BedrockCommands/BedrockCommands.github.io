@@ -1,0 +1,23 @@
+body.mobile .card-button-title, body.mobile .banner-game-title {
+  position: relative;
+  top: 7px;
+}
+
+body.mobile .events {
+  padding-top: 14px;
+}
+
+body.mobile #nav-menu .sub-menu li a {
+  padding-top: 7px;
+  padding-bottom: 3px;
+}
+
+body.mobile .dropdown-btn {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+body.mobile #nav-menu li a {
+  padding-top: 16px;
+  padding-bottom: 12px;
+}

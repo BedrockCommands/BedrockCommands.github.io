@@ -1,0 +1,27 @@
+# Site settings
+title: Bedrock Commands Community
+email: bedrockcommandscommunity@gmail.com
+description: >-
+  The premier Discord server for Minecraft Bedrock Edition command enthusiasts! Recognized as the #1 Bedrock commands server, we are dedicated to fostering a collaborative environment where both beginners and experts can share knowledge, seek assistance, and enhance their command skills.
+baseurl: ""
+url: "https://bedrockcommands.org"
+github_username: BedrockCommands
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Time zone
+timezone: Europe/Berlin
+
+# Enable live reload
+livereload: true
+
+# Exclude from processing
+exclude:
+  - README.md
+  - node_modules/
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
