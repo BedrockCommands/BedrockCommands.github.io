@@ -45,6 +45,7 @@ title: Banners
       <li><label><input type="checkbox" value="@chg_arctic_wolf"> @chg_arctic_wolf</label></li>
       <li><label><input type="checkbox" value="@codegeek01"> @codegeek01</label></li>
       <li><label><input type="checkbox" value="@crunchycookie"> @crunchycookie</label></li>
+      <li><label><input type="checkbox" value="@fantasy9967"> @fantasy9967</label></li>
       <li><label><input type="checkbox" value="@fatalconfuzion"> @fatalconfuzion</label></li>
       <li><label><input type="checkbox" value="@jeanmajid"> @jeanmajid</label></li>
       <li><label><input type="checkbox" value="@jstash"> @jstash</label></li>
@@ -63,6 +64,16 @@ title: Banners
 </div>
 
 <div class="gallery">
+<div class="banner" data-year="2025" data-month="May" data-author="@fantasy9967">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2025</span>
+      <span class="tag">May</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2025.May.png" alt="Server Banner 2025 May">
+  </div>
+</div>
+
 <div class="banner" data-year="2025" data-month="April" data-author="@solarflurry">
   <div class="banner-wrapper">
     <div class="tags">
