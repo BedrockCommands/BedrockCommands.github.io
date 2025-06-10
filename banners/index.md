@@ -64,6 +64,16 @@ title: Banners
 </div>
 
 <div class="gallery">
+<div class="banner" data-year="2025" data-month="June" data-author="@crunchycookie">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2025</span>
+      <span class="tag">June</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2025.Jun.png" alt="Server Banner 2025 June">
+  </div>
+</div>
+
 <div class="banner" data-year="2025" data-month="May" data-author="@fantasy9967">
   <div class="banner-wrapper">
     <div class="tags">
