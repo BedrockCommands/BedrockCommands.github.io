@@ -25,3 +25,9 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor/
+
+# Auth for Task Management
+jekyll_auth:
+  whitelist:
+    - "^/projects/cook-off/tasks"
+  ssl: true

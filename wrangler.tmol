@@ -1,0 +1,14 @@
+name = "bedrockcommands-site"
+main = "functions"
+
+account_id = "bf9744ec6bdd4a1f355c598117051213"
+workers_dev = true
+compatibility_date = "2025-06-27"
+
+[env.production]
+route = "https://bedrockcommands.org/*"
+zone_id = "6a5430c369bfb62a8a015e24d018818c"
+
+[[kv_namespaces]]
+binding = "TASKS_KV"
+id = "80bfd8de28314c04bbd8b6ab1d3e7395"
