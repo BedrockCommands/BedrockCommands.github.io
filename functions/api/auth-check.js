@@ -28,11 +28,11 @@ async function verifyJWT(jwt, key) {
   return JSON.parse(atob(payloadB64))
 }
 
-// Check nested groups and teams for targetTeam membership
-function isUserInTeam(payload, targetTeam) {
+function isUserInTeam(payload, targetOrg, targetTeam) {
   if (!payload.groups || !Array.isArray(payload.groups)) return false
 
   return payload.groups.some(org =>
+    org.name === targetOrg &&
     Array.isArray(org.teams) &&
     org.teams.some(team => team.name === targetTeam)
   )
@@ -50,7 +50,7 @@ export async function onRequest({ request }) {
     const key = await getCloudflareKey()
     const payload = await verifyJWT(token, key)
 
-    const isTeamMember = isUserInTeam(payload, 'cook_off_team')
+    const isTeamMember = isUserInTeam(payload, 'BedrockCommands', 'cook_off_team')
 
     return new Response(
       JSON.stringify({
