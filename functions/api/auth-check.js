@@ -28,6 +28,16 @@ async function verifyJWT(jwt, key) {
   return JSON.parse(atob(payloadB64))
 }
 
+// Check nested groups and teams for targetTeam membership
+function isUserInTeam(payload, targetTeam) {
+  if (!payload.groups || !Array.isArray(payload.groups)) return false
+
+  return payload.groups.some(org =>
+    Array.isArray(org.teams) &&
+    org.teams.some(team => team.name === targetTeam)
+  )
+}
+
 export async function onRequest({ request }) {
   const token = request.headers.get('cf-access-jwt-assertion')
   if (!token) {
@@ -40,9 +50,7 @@ export async function onRequest({ request }) {
     const key = await getCloudflareKey()
     const payload = await verifyJWT(token, key)
 
-    const isTeamMember =
-      payload.team_name === 'cook_off_team' ||
-      (payload.groups && payload.groups.includes('cook_off_team'))
+    const isTeamMember = isUserInTeam(payload, 'cook_off_team')
 
     return new Response(
       JSON.stringify({
@@ -50,8 +58,8 @@ export async function onRequest({ request }) {
         userInfo: {
           name: payload.name,
           email: payload.email,
-          team: payload.team_name,
-          avatar: payload.picture,
+          groups: payload.groups,
+          avatar: payload.picture || null,
         },
       }),
       { headers: { 'Content-Type': 'application/json' } }
