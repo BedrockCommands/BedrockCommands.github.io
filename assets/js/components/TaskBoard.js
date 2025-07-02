@@ -9,13 +9,13 @@ export default {
         </button>
       </div>
 
-      <div v-else class="italic text-gray-500 mb-4">
-        <br>This page is view only — only designated roles may edit.
-      </div>
-
       <div v-if="user.name" class="text-sm text-gray-600 mb-6 flex items-center gap-2">
         Welcome, {{ user.name }}
         <img v-if="user.picture" :src="user.picture" alt="Avatar" class="w-6 h-6 rounded-full" />
+      </div>
+      
+      <div v-else class="italic text-gray-500 mb-4">
+        <br>This page is view only — only designated roles may edit.
       </div>
 
       <div v-if="showForm" class="mt-6 p-4 bg-gray-800 rounded shadow-lg text-white max-w-2xl">
