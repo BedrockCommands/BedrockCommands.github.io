@@ -6,6 +6,7 @@
 @import url('filters.css');
 @import url('tags.css');
 @import url('mc-commands.css');
+@import url('taskboard.css');
 @import url('mobile.css');
 
 /* Ensure the container takes at least the full viewport height */
