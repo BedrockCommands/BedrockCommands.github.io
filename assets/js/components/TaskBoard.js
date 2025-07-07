@@ -7,8 +7,8 @@ export default {
 
       <div v-else>
         <div v-if="!user.loggedIn" class="tb-login-prompt">
-          <p>This page is view only — log in with Discord to manage task boards.</p>
-          <button @click="startDiscordLogin" class="tb-login-btn">Login with Discord</button>
+          <p>This page is view only — log in with GitHub to manage task boards.</p>
+          <button @click="startGithubLogin" class="tb-login-btn">Login with GitHub</button>
         </div>
 
         <div v-else>
@@ -180,9 +180,9 @@ export default {
     const canEdit = ref(false)
     const taskboards = ref([])
 
-    // List of Discord user IDs allowed to edit
-    const allowedDiscordIDs = [
-      "711962234431078490", "294539727154184192", "887971908438597642"
+    // List of GitHub user IDs allowed to edit
+    const allowedGithubIDs = [
+      "124172979", "84600834", "99989764"
     ]
 
     const knownUsernames = ref([
@@ -309,7 +309,7 @@ export default {
           name: data.username,
           picture: data.avatarUrl
         }
-        canEdit.value = allowedDiscordIDs.includes(data.id)
+        canEdit.value = allowedGithubIDs.includes(data.id)
       } catch {
         user.value = { loggedIn: false, id: null, name: null, picture: null }
         canEdit.value = false
@@ -318,9 +318,9 @@ export default {
       }
     }
 
-    function startDiscordLogin() {
-      // Redirect to your Discord OAuth login endpoint
-      window.location.href = '/api/auth-login'
+    function startGithubLogin() {
+      // Redirect to your GitHub OAuth login endpoint
+      window.location.href = '/api/github-login'
     }
 
     function logout() {
@@ -361,7 +361,7 @@ export default {
       activePopupTask,
       knownUsernames,
       usernameDisplayMap,
-      startDiscordLogin,
+      startGithubLogin,
       logout
     }
   }

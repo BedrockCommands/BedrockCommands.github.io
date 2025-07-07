@@ -1,9 +1,9 @@
 export async function onRequestGet(context) {
-  const clientId = context.env.DISCORD_CLIENT_ID
-  const redirectUri = 'https://bedrockcommands.org/api/discord-callback'
-  const scope = 'identify'
+  const clientId = context.env.GITHUB_CLIENT_ID;
+  const redirectUri = 'https://bedrockcommands.org/api/auth-callback';
+  const scope = 'read:user';
 
-  const discordOAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}`
+  const githubOAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}`;
 
-  return Response.redirect(discordOAuthUrl, 302)
+  return Response.redirect(githubOAuthUrl, 302);
 }
