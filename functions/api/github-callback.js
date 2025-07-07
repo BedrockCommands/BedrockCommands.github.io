@@ -9,7 +9,10 @@ export async function onRequestGet(context) {
 
   const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
-    headers: { 'Accept': 'application/json' },
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+    },
     body: params.toString(), // <-- CRUCIAL
   });
 
