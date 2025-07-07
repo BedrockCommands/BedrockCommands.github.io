@@ -14,11 +14,11 @@ export async function onRequestGet(context) {
   params.append('redirect_uri', context.env.DISCORD_REDIRECT_URI)
   params.append('scope', 'identify guilds')
 
-  // Step 1: Exchange code for access token
+  // Exchange code for token
   const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: params.toString()
+    body: params.toString(),
   })
 
   if (!tokenResponse.ok) {
@@ -28,11 +28,11 @@ export async function onRequestGet(context) {
   const tokenData = await tokenResponse.json()
   const accessToken = tokenData.access_token
 
-  // Step 2: Fetch user info
+  // Get user info
   const userResponse = await fetch('https://discord.com/api/users/@me', {
     headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
+      Authorization: `Bearer ${accessToken}`,
+    },
   })
 
   if (!userResponse.ok) {
@@ -41,22 +41,21 @@ export async function onRequestGet(context) {
 
   const userInfo = await userResponse.json()
 
-  // Step 3: Store essential user info in a cookie
-  const userSession = {
+  // Set session cookie
+  const sessionData = {
     id: userInfo.id,
     username: userInfo.username,
     avatar: userInfo.avatar,
-    discriminator: userInfo.discriminator
   }
 
-  const encoded = btoa(JSON.stringify(userSession))
+  const cookie = `session=${btoa(JSON.stringify(sessionData))}; Path=/; HttpOnly; Secure; SameSite=Lax`
 
-  // Step 4: Redirect back to the app with cookie set
+  // Redirect back to task UI
   return new Response(null, {
     status: 302,
     headers: {
-      'Set-Cookie': `discord_user=${encodeURIComponent(encoded)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`, // 7 days
-      'Location': '/projects/cook-off/tasks'
-    }
+      'Set-Cookie': cookie,
+      'Location': '/projects/cook-off/tasks',
+    },
   })
 }
