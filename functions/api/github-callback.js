@@ -23,7 +23,10 @@ export async function onRequestGet(context) {
   if (!access_token) return new Response('No access token returned', { status: 500 });
 
   const userRes = await fetch('https://api.github.com/user', {
-    headers: { Authorization: `token ${access_token}` }  // <-- FIXED HERE
+    headers: {
+      Authorization: `token ${access_token}`,
+      'User-Agent': 'BCC-Taskboard-App'
+    }
   });
 
   if (!userRes.ok) {
