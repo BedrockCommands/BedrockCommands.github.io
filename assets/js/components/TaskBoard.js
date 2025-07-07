@@ -182,7 +182,7 @@ export default {
 
     // List of GitHub user IDs allowed to edit
     const allowedGithubIDs = [
-      "124172979", "84600834", "99989764"
+      124172979, 84600834, 99989764
     ]
 
     const knownUsernames = ref([
