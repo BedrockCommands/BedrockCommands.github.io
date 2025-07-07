@@ -1,63 +1,39 @@
 export async function onRequestGet(context) {
-  const url = new URL(context.request.url)
-  const code = url.searchParams.get('code')
+  const code = new URL(context.request.url).searchParams.get('code');
+  if (!code) return new Response('Missing code', { status: 400 });
 
-  if (!code) {
-    return new Response('Missing code', { status: 400 })
-  }
+  const params = new URLSearchParams();
+  params.append('client_id', context.env.GITHUB_CLIENT_ID);
+  params.append('client_secret', context.env.GITHUB_CLIENT_SECRET);
+  params.append('code', code);
 
-  // Exchange code for access token
   const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      client_id: context.env.GITHUB_CLIENT_ID,
-      client_secret: context.env.GITHUB_CLIENT_SECRET,
-      code,
-      redirect_uri: 'https://bedrockcommands.org/api/github-callback',
-    }),
-  })
+    headers: { 'Accept': 'application/json' },
+    body: params
+  });
 
-  if (!tokenRes.ok) {
-    return new Response('Failed to fetch access token', { status: 500 })
-  }
+  if (!tokenRes.ok) return new Response('Token exchange failed', { status: 500 });
+  const { access_token } = await tokenRes.json();
 
-  const tokenData = await tokenRes.json()
-
-  if (!tokenData.access_token) {
-    return new Response('No access token received', { status: 500 })
-  }
-
-  // Fetch user info from GitHub API
   const userRes = await fetch('https://api.github.com/user', {
-    headers: {
-      Authorization: `Bearer ${tokenData.access_token}`,
-      'User-Agent': 'BedrockCommands-App',
-      Accept: 'application/vnd.github+json',
-    },
-  })
+    headers: { Authorization: `Bearer ${access_token}` }
+  });
 
-  if (!userRes.ok) {
-    return new Response('Failed to fetch user info', { status: 500 })
-  }
+  if (!userRes.ok) return new Response('User fetch failed', { status: 500 });
+  const user = await userRes.json();
 
-  const userInfo = await userRes.json()
-
-  // Save user info in cookie, base64 encoded JSON
   const cookieValue = btoa(JSON.stringify({
-    id: userInfo.id,
-    login: userInfo.login,
-    name: userInfo.name,
-    avatar_url: userInfo.avatar_url,
-  }))
+    id: user.id,
+    username: user.login,
+    avatarUrl: user.avatar_url
+  }));
 
-  const headers = new Headers({
-    'Set-Cookie': `github_user=${cookieValue}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800`, // 7 days
-    'Location': '/projects/cook-off/tasks',
-  })
-
-  return new Response(null, { status: 302, headers })
+  return new Response(null, {
+    status: 302,
+    headers: {
+      'Set-Cookie': `github_user=${cookieValue}; Path=/; HttpOnly; SameSite=Lax`,
+      'Location': '/projects/cook-off/tasks'
+    }
+  });
 }
