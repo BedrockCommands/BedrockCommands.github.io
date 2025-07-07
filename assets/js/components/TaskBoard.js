@@ -1,141 +1,368 @@
-const { ref, onMounted } = Vue
+const { ref, onMounted, nextTick } = Vue
 
 export default {
   template: `
     <div>
-      <div v-if="canEdit" class="mb-4">
-        <button @click="showForm = true" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded">
-          ➕ Add Table
-        </button>
-      </div>
+      <div v-if="loading" class="tb-loading">Loading user info...</div>
 
-      <div v-if="user.name" class="text-sm text-gray-600 mb-6 flex items-center gap-2">
-        Welcome, {{ user.name }}
-        <img v-if="user.picture" :src="user.picture" alt="Avatar" class="w-6 h-6 rounded-full" />
-      </div>
-      
-      <div v-else class="italic text-gray-500 mb-4">
-        <br>This page is view only — only designated roles may edit.
-      </div>
+      <div v-else>
+        <div v-if="!user.loggedIn" class="tb-login-prompt">
+          <p>This page is view only — log in with Discord to manage task boards.</p>
+          <button @click="startDiscordLogin" class="tb-login-btn">Login with Discord</button>
+        </div>
 
-      <div v-if="showForm" class="mt-6 p-4 bg-gray-800 rounded shadow-lg text-white max-w-2xl">
-        <h3 class="text-xl mb-4 font-bold">Create New Taskboard</h3>
-        <label class="block mb-2 text-sm">Title</label>
-        <input v-model="newTable.title" class="w-full mb-3 p-2 bg-gray-900 border border-gray-600 rounded text-white" />
-
-        <label class="block mb-2 text-sm">Description</label>
-        <textarea v-model="newTable.description" rows="3"
-          class="w-full mb-3 p-2 bg-gray-900 border border-gray-600 rounded text-white"></textarea>
-
-        <label class="block mb-2 text-sm">Image URL</label>
-        <input v-model="newTable.image" class="w-full mb-3 p-2 bg-gray-900 border border-gray-600 rounded text-white" />
-
-        <label class="block mb-2 text-sm">Labels (comma-separated)</label>
-        <input v-model="newTable.labels" class="w-full mb-3 p-2 bg-gray-900 border border-gray-600 rounded text-white" />
-
-        <button @click="saveNewTable" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">💾 Save</button>
-        <button @click="showForm = false" class="ml-3 text-gray-400 hover:text-white">Cancel</button>
-      </div>
-
-      <div class="tb-tables-container mt-6">
-        <div class="tb-table" v-for="(table, index) in exampleTables" :key="index">
-          <div class="tb-table-labels">
-            <span class="tb-table-label" v-for="(label, i) in table.labels" :key="i">{{ label }}</span>
+        <div v-else>
+          <div class="tb-user-info">
+            Logged in as {{ user.name }}
+            <img v-if="user.picture" :src="user.picture" alt="Avatar" class="tb-user-avatar" />
+            <button @click="logout" class="tb-logout-btn">Logout</button>
           </div>
-          <h2>{{ table.title }}</h2>
-          <p>{{ table.description }}</p>
-          <img :src="table.image" v-if="table.image">
 
-          <ul class="tb-table-tasks">
-            <li v-for="(task, tIndex) in table.tasks" :key="tIndex">
-              <label>
-                <input
-                  type="checkbox"
-                  :checked="task.checked"
-                  :disabled="!canEdit"
-                  @change="toggleTask(table, task)"
-                />
-                {{ task.text }}
-              </label>
-              <img
-                v-if="task.user"
-                :src="'https://github.com/' + task.user + '.png'"
-                :alt="task.user"
-              />
+          <div v-if="canEdit" class="tb-edit-toolbar">
+            <button @click="createGhostTaskboard" class="tb-add-tb">✚ New Taskboard</button>
+          </div>
+
+          <div v-else class="tb-view-only-msg">
+            <br>This page is view only — only designated roles may edit.
+          </div>
+        </div>
+
+        <div class="tb-container">
+          <div v-for="(taskboard, tbIndex) in taskboards" :key="tbIndex" class="tb">
+            <div class="tb-header">
+              <textarea
+                v-if="canEdit"
+                v-model="taskboard.title"
+                @input="autoResize($event)"
+                @blur="finalizeTaskboard(tbIndex)"
+                placeholder="Title"
+                class="tb-title-input"
+                rows="1"
+              ></textarea>
+              <h2 v-else class="tb-title">{{ taskboard.title }}</h2>
+              <button v-if="canEdit" @click="deleteTaskboard(tbIndex)" class="tb-delete-tb">❌</button>
+            </div>
+
+            <img :src="taskboard.image || '/assets/images/banners/default.png'" v-if="taskboard.image" />
+            <input
+              v-if="canEdit"
+              v-model="taskboard.image"
+              @blur="finalizeTaskboard(tbIndex)"
+              placeholder="Insert Image URL"
+              class="tb-img-input"
+            />
+
+            <p v-if="!canEdit">{{ taskboard.description }}</p>
+            <textarea
+              v-if="canEdit"
+              v-model="taskboard.description"
+              @input="autoResize($event)"
+              @blur="finalizeTaskboard(tbIndex)"
+              placeholder="Description"
+              class="tb-desc-input"
+            ></textarea>
+
+            <div class="tb-bins-container">
+              <div v-for="(bin, binIndex) in taskboard.bins" :key="binIndex" class="tb-bin">
+                <div class="tb-labels-container">
+                  <span v-for="label in bin.labels" :key="label" class="tb-label">{{ label }}</span>
+                </div>
+                <div class="tb-header">
+                  <textarea
+                    v-if="canEdit"
+                    v-model="bin.title"
+                    @input="autoResize($event)"
+                    @blur="finalizeBin(tbIndex, binIndex)"
+                    placeholder="Card Title"
+                    class="tb-bin-title-input"
+                    rows="1"
+                  ></textarea>
+                  <h2 v-else class="tb-bin-title">{{ bin.title }}</h2>
+                  <button v-if="canEdit" @click="deleteBin(tbIndex, binIndex)" class="tb-delete-bin">❌</button>
+                </div>
+
+                <p v-if="!canEdit">{{ bin.description }}</p>
+                <textarea
+                  v-if="canEdit"
+                  v-model="bin.description"
+                  @input="autoResize($event)"
+                  @blur="finalizeBin(tbIndex, binIndex)"
+                  placeholder="Card Description"
+                  class="tb-bin-desc-input"
+                ></textarea>
+
+                <ul class="tb-tasks-container">
+                  <li v-for="(task, taskIndex) in bin.tasks" :key="taskIndex">
+                    <label>
+                      <input
+                        type="checkbox"
+                        :checked="task.checked"
+                        :disabled="!canEdit"
+                        @change="toggleTask(tbIndex, binIndex, taskIndex)"
+                      />
+                      <textarea
+                        v-if="canEdit"
+                        v-model="task.text"
+                        @input="autoResize($event)"
+                        @blur="finalizeTask(tbIndex, binIndex, taskIndex)"
+                        placeholder="Task Text"
+                        class="tb-tasks-input"
+                        rows="1"
+                      ></textarea>
+                      <span v-else>{{ task.text }}</span>
+                    </label>
+
+                    <div class="tb-creator-box">
+                      <button v-if="canEdit" @click="(e) => toggleAssignPopup(tbIndex, binIndex, taskIndex, e)" class="tb-assign-btn" title="Assign creator">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
+                          <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
+                        </svg>
+                      </button>
+
+                      <div class="tb-assigned-users" v-if="task.users && task.users.length">
+                        <img
+                          v-for="(username, idx) in task.users"
+                          :key="idx"
+                          :src="'/assets/images/avatars/' + username.trim() + '.webp'"
+                          :alt="username"
+                          :title="'Assigned to ' + (usernameDisplayMap[username] || username)"
+                        />
+                      </div>
+                    </div>
+
+                    <button v-if="canEdit" @click="deleteTask(tbIndex, binIndex, taskIndex)" class="tb-delete-task">❌</button>
+                  </li>
+                </ul>
+                <div v-if="canEdit">
+                  <button @click="createGhostTask(tbIndex, binIndex)" class="tb-add-task">✚ Add a Task</button>
+                </div>
+              </div>
+              <div v-if="canEdit">
+                <button @click="createGhostBin(tbIndex)" class="tb-add-bin">✚ Add a Card</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Popup -->
+        <div
+          v-if="activePopupTask?.showPopup"
+          class="tb-popup"
+          :style="{
+            top: activePopupTask.popupY + 'px',
+            left: activePopupTask.popupX + 'px'
+          }"
+        >
+          <input
+            v-model="activePopupTask.userInput"
+            @input="filterSuggestions(activePopupTask)"
+            @keydown.enter.prevent="assignUser(activePopupTask)"
+            @blur="assignUser(activePopupTask)"
+            placeholder="user1, user2"
+            class="tb-popup-input"
+            autofocus
+          />
+          <ul v-if="activePopupTask.filteredSuggestions.length" class="tb-suggestions">
+            <li
+              v-for="(suggestion, i) in activePopupTask.filteredSuggestions"
+              :key="i"
+              @mousedown.prevent="selectSuggestion(activePopupTask, suggestion)"
+            >
+              {{ usernameDisplayMap[suggestion] || suggestion }}
             </li>
           </ul>
         </div>
       </div>
-    </div>
   `,
   setup() {
+    const loading = ref(true)
+    const user = ref({ loggedIn: false, id: null, name: null, picture: null })
     const canEdit = ref(false)
-    const user = ref({})
-    const showForm = ref(false)
-    const exampleTables = ref([
-      {
-        title: 'Test Table 1',
-        description: 'This is a test description.',
-        image: '/assets/images/banners/testboard2.png',
-        labels: ['Test Label 1', 'Test Label 2'],
-        tasks: [
-          { text: 'Task 1', checked: false, user: 'octocat' },
-          { text: 'Task 2', checked: true, user: null }
-        ]
-      }
+    const taskboards = ref([])
+
+    // List of Discord user IDs allowed to edit
+    const allowedDiscordIDs = [
+      "711962234431078490", "294539727154184192", "887971908438597642"
+    ]
+
+    const knownUsernames = ref([
+      "vactricaking", "bm6", "veyscold", "itzbeasty", "zruby", "califerr", "ccjjkk95",
+      "ax_titan", "jeanmajid", "crunchycookie", "crepaspmkinpie", "theemonster395",
+      "kittenb0y", "spacebarninja", "your_friend6254", "brodblox09", "poolroxjosh",
+      "cornyflex", "catfederation", "dinosscar"
     ])
 
-    const newTable = ref({
-      title: '',
-      description: '',
-      image: '',
-      labels: ''
-    })
+    const usernameDisplayMap = {
+      zruby: ".zruby",
+      bm6: "bm6."
+    }
 
-    async function checkAuth() {
-      try {
-        const res = await fetch('/api/auth-check', { credentials: 'include' })
-        const { isAuthorized, userInfo } = await res.json()
-        canEdit.value = isAuthorized
-        user.value = userInfo
-      } catch (err) {
-        console.error('Auth check failed:', err)
-        canEdit.value = false
+    const activePopupTask = ref(null)
+
+    function autoResize(event) {
+      const el = event.target
+      el.style.height = 'auto'
+      el.style.height = el.scrollHeight + 'px'
+    }
+
+    function createGhostTaskboard() {
+      taskboards.value.unshift({ title: '', description: '', image: '', bins: [], _isGhost: true })
+      nextTick(() => document.querySelectorAll('.tb-title-input').forEach(autoResize))
+    }
+
+    function finalizeTaskboard(tbIndex) {
+      const board = taskboards.value[tbIndex]
+      if (!board.title && !board.description && !board.image) {
+        taskboards.value.splice(tbIndex, 1)
+      } else {
+        delete board._isGhost
       }
     }
 
-    function toggleTask(table, task) {
-      if (!canEdit.value) return
-      task.checked = !task.checked
-      // TODO: Save change via backend API
+    function createGhostBin(tbIndex) {
+      taskboards.value[tbIndex].bins.push({ title: '', description: '', labels: [], tasks: [], _isGhost: true })
+      nextTick(() => document.querySelectorAll('.tb-bin-title-input').forEach(autoResize))
     }
 
-    function saveNewTable() {
-      if (!newTable.value.title) return
-      exampleTables.value.push({
-        title: newTable.value.title,
-        description: newTable.value.description,
-        image: newTable.value.image,
-        labels: newTable.value.labels.split(',').map(l => l.trim()),
-        tasks: []
+    function finalizeBin(tbIndex, binIndex) {
+      const bin = taskboards.value[tbIndex].bins[binIndex]
+      if (!bin.title && !bin.description) {
+        taskboards.value[tbIndex].bins.splice(binIndex, 1)
+      } else {
+        delete bin._isGhost
+      }
+    }
+
+    function createGhostTask(tbIndex, binIndex) {
+      taskboards.value[tbIndex].bins[binIndex].tasks.push({
+        text: '',
+        checked: false,
+        user: null,
+        userInput: '',
+        users: [],
+        showPopup: false,
+        filteredSuggestions: [],
+        popupX: 0,
+        popupY: 0,
+        _isGhost: true
       })
-      newTable.value = { title: '', description: '', image: '', labels: '' }
-      showForm.value = false
-      // TODO: Save new table to backend API
+      nextTick(() => document.querySelectorAll('.tb-tasks-input').forEach(autoResize))
+    }
+
+    function finalizeTask(tbIndex, binIndex, taskIndex) {
+      const task = taskboards.value[tbIndex].bins[binIndex].tasks[taskIndex]
+      if (!task.text) {
+        taskboards.value[tbIndex].bins[binIndex].tasks.splice(taskIndex, 1)
+      } else {
+        delete task._isGhost
+      }
+    }
+
+    function toggleTask(tbIndex, binIndex, taskIndex) {
+      const task = taskboards.value[tbIndex].bins[binIndex].tasks[taskIndex]
+      if (!canEdit.value) return
+      task.checked = !task.checked
+    }
+
+    function toggleAssignPopup(tbIndex, binIndex, taskIndex, event) {
+      const task = taskboards.value[tbIndex].bins[binIndex].tasks[taskIndex]
+      const rect = event.currentTarget.getBoundingClientRect()
+      task.popupX = rect.left + window.scrollX
+      task.popupY = rect.bottom + window.scrollY
+      task.showPopup = true
+      task.userInput = (task.users || []).join(', ')
+      task.filteredSuggestions = []
+      activePopupTask.value = task
+    }
+
+    function assignUser(task) {
+      task.users = (task.userInput || '').split(',').map(u => u.trim()).filter(u => !!u)
+      task.showPopup = false
+      task.filteredSuggestions = []
+      activePopupTask.value = null
+    }
+
+    function filterSuggestions(task) {
+      const input = task.userInput.split(',').pop().trim().toLowerCase()
+      task.filteredSuggestions = knownUsernames.value.filter(u => u.toLowerCase().startsWith(input) && !task.users.includes(u))
+    }
+
+    function selectSuggestion(task, suggestion) {
+      let current = task.userInput.split(',').slice(0, -1)
+      current.push(suggestion)
+      task.userInput = current.join(', ') + ', '
+      task.filteredSuggestions = []
+    }
+
+    function deleteTaskboard(tbIndex) { taskboards.value.splice(tbIndex, 1) }
+    function deleteBin(tbIndex, binIndex) { taskboards.value[tbIndex].bins.splice(binIndex, 1) }
+    function deleteTask(tbIndex, binIndex, taskIndex) { taskboards.value[tbIndex].bins[binIndex].tasks.splice(taskIndex, 1) }
+
+    async function fetchUser() {
+      try {
+        const res = await fetch('/api/auth-user', { credentials: 'include' })
+        if (!res.ok) throw new Error('Not logged in')
+        const data = await res.json()
+        user.value = {
+          loggedIn: true,
+          id: data.id,
+          name: data.username,
+          picture: data.avatarUrl
+        }
+        canEdit.value = allowedDiscordIDs.includes(data.id)
+      } catch {
+        user.value = { loggedIn: false, id: null, name: null, picture: null }
+        canEdit.value = false
+      } finally {
+        loading.value = false
+      }
+    }
+
+    function startDiscordLogin() {
+      // Redirect to your Discord OAuth login endpoint
+      window.location.href = '/api/auth-login'
+    }
+
+    function logout() {
+      fetch('/api/auth-logout', { method: 'POST', credentials: 'include' })
+        .then(() => {
+          user.value = { loggedIn: false, id: null, name: null, picture: null }
+          canEdit.value = false
+        })
     }
 
     onMounted(() => {
-      checkAuth()
+      fetchUser()
+      nextTick(() => {
+        document.querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input').forEach(autoResize)
+      })
     })
 
     return {
-      canEdit,
+      loading,
       user,
-      showForm,
-      newTable,
-      exampleTables,
+      canEdit,
+      taskboards,
+      createGhostTaskboard,
+      deleteTaskboard,
+      createGhostBin,
+      deleteBin,
+      createGhostTask,
+      deleteTask,
       toggleTask,
-      saveNewTable
+      finalizeTaskboard,
+      finalizeBin,
+      finalizeTask,
+      toggleAssignPopup,
+      assignUser,
+      filterSuggestions,
+      selectSuggestion,
+      autoResize,
+      activePopupTask,
+      knownUsernames,
+      usernameDisplayMap,
+      startDiscordLogin,
+      logout
     }
   }
 }
