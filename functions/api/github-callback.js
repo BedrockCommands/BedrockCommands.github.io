@@ -25,7 +25,7 @@ export async function onRequestGet(context) {
   const userRes = await fetch('https://api.github.com/user', {
     headers: {
       Authorization: `token ${access_token}`,
-      'User-Agent': 'BCC-Taskboard-App'
+      'User-Agent': 'BCC Task Management'
     }
   });
 
