@@ -13,17 +13,24 @@ export async function onRequestGet(context) {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
     },
-    body: params.toString(), // <-- CRUCIAL
+    body: params.toString()
   });
 
-  if (!tokenRes.ok) return new Response('Token exchange failed', { status: 500 });
-  const { access_token } = await tokenRes.json();
+  const tokenData = await tokenRes.json();
+  console.log('GitHub Token Response:', JSON.stringify(tokenData));
+  
+  const access_token = tokenData.access_token;
+  if (!access_token) return new Response('No access token returned', { status: 500 });
 
   const userRes = await fetch('https://api.github.com/user', {
-    headers: { Authorization: `Bearer ${access_token}` }
+    headers: { Authorization: `token ${access_token}` }  // <-- FIXED HERE
   });
 
-  if (!userRes.ok) return new Response('User fetch failed', { status: 500 });
+  if (!userRes.ok) {
+    const errorText = await userRes.text();
+    return new Response('User fetch failed: ' + errorText, { status: 500 });
+  }
+
   const user = await userRes.json();
 
   const cookieValue = btoa(JSON.stringify({
@@ -32,7 +39,7 @@ export async function onRequestGet(context) {
     avatarUrl: user.avatar_url
   }));
 
-  return new Response(null, {
+  return new Response('Redirecting...', {
     status: 302,
     headers: {
       'Set-Cookie': `github_user=${cookieValue}; Path=/; HttpOnly; SameSite=Lax`,
