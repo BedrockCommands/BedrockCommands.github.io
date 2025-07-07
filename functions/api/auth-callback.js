@@ -13,12 +13,13 @@ export async function onRequestGet(context) {
 
   const tokenRes = await fetch('https://discord.com/api/oauth2/token', {
     method: 'POST',
-    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: params.toString()
   });
   if (!tokenRes.ok) return new Response('Auth token error', { status: 500 });
 
   const { access_token } = await tokenRes.json();
+
   const userRes = await fetch('https://discord.com/api/users/@me', {
     headers: { Authorization: `Bearer ${access_token}` }
   });
@@ -26,15 +27,17 @@ export async function onRequestGet(context) {
 
   const userInfo = await userRes.json();
 
-  // Set a session cookie — adjust name, security flags, expiration as needed
-  const cookieValue = JSON.stringify({
+  // Cookie must match the name expected in /api/auth-user.js
+  const cookieValue = btoa(JSON.stringify({
     id:       userInfo.id,
     username: userInfo.username,
     avatar:   userInfo.avatar
-  });
+  }));
+
   const headers = new Headers({
-    'Set-Cookie': `discord_session=${encodeURIComponent(cookieValue)}; Path=/; HttpOnly; SameSite=Lax`,
-    'Location':   '/projects/cook-off/tasks'  // redirect target
+    'Set-Cookie': `discord_user=${cookieValue}; Path=/; HttpOnly; SameSite=Lax; Secure`,
+    'Location': '/projects/cook-off/tasks'
   });
+
   return new Response(null, { status: 302, headers });
 }
