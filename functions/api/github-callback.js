@@ -10,7 +10,7 @@ export async function onRequestGet(context) {
   const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
     headers: { 'Accept': 'application/json' },
-    body: params
+    body: params.toString(), // <-- CRUCIAL
   });
 
   if (!tokenRes.ok) return new Response('Token exchange failed', { status: 500 });
