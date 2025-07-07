@@ -27,17 +27,21 @@ export async function onRequestGet(context) {
 
   const userInfo = await userRes.json();
 
-  // Cookie must match the name expected in /api/auth-user.js
   const cookieValue = btoa(JSON.stringify({
-    id:       userInfo.id,
+    id: userInfo.id,
     username: userInfo.username,
-    avatar:   userInfo.avatar
+    avatar: userInfo.avatar
   }));
 
   const headers = new Headers({
-    'Set-Cookie': `discord_user=${cookieValue}; Path=/; HttpOnly; SameSite=Lax; Secure`,
-    'Location': '/projects/cook-off/tasks'
+    'Set-Cookie': `discord_user=${cookieValue}; Path=/; HttpOnly; SameSite=Lax; Secure`
   });
 
-  return new Response(null, { status: 302, headers });
+  return new Response(null, {
+    status: 302,
+    headers: {
+      ...headers,
+      'Location': '/projects/cook-off/tasks'
+    }
+  });
 }
