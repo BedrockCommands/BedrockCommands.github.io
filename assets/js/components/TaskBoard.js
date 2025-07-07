@@ -300,7 +300,7 @@ export default {
 
     async function fetchUser() {
       try {
-        const res = await fetch('/api/auth-user', { credentials: 'include' })
+        const res = await fetch('/api/github-user', { credentials: 'include' })
         if (!res.ok) throw new Error('Not logged in')
         const data = await res.json()
         user.value = {
@@ -324,7 +324,7 @@ export default {
     }
 
     function logout() {
-      fetch('/api/auth-logout', { method: 'POST', credentials: 'include' })
+      fetch('/api/github-logout', { method: 'POST', credentials: 'include' })
         .then(() => {
           user.value = { loggedIn: false, id: null, name: null, picture: null }
           canEdit.value = false
