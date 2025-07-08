@@ -6,16 +6,14 @@ export default {
       <div v-if="loading" class="tb-loading">Loading user info...</div>
 
       <div v-else>
-        <div v-if="!user.loggedIn" class="tb-login-prompt">
-          <p>This page is view only — log in with GitHub to manage task boards.</p>
-          <button @click="startGithubLogin" class="tb-login-btn">Login with GitHub</button>
+        <div v-if="!user.loggedIn">
+          <button @click="startGithubLogin" class="tb-login-btn"><img src="/assets/images/github_logo.svg"/><p>Login with Github to Manage Task Boards</p></button>
         </div>
 
         <div v-else>
           <div class="tb-user-info">
-            Logged in as {{ user.name }}
-            <img v-if="user.picture" :src="user.picture" alt="Avatar" class="tb-user-avatar" />
-            <button @click="logout" class="tb-logout-btn">Logout</button>
+            Welcome, {{ user.name }}.
+            <button @click="logout" class="tb-logout-btn"><img v-if="user.picture" :src="user.picture" alt="Avatar" class="tb-user-avatar" /><p>Log out</p></button>
           </div>
 
           <div v-if="canEdit" class="tb-edit-toolbar">
@@ -23,7 +21,7 @@ export default {
           </div>
 
           <div v-else class="tb-view-only-msg">
-            <br>This page is view only — only designated roles may edit.
+            <br>This page is view only — only authorized users may edit.
           </div>
         </div>
 
@@ -175,9 +173,9 @@ export default {
       </div>
   `,
   setup() {
-    const loading = ref(true)
+    const loading = ref(true) // set back to true
     const user = ref({ loggedIn: false, id: null, name: null, picture: null })
-    const canEdit = ref(false)
+    const canEdit = ref(false) // set back to false
     const taskboards = ref([])
 
     // List of GitHub user IDs allowed to edit
@@ -186,11 +184,12 @@ export default {
     ]
 
     const knownUsernames = ref([
-      "vactricaking", "bm6", "veyscold", "itzbeasty", "zruby", "califerr", "ccjjkk95",
-      "ax_titan", "jeanmajid", "crunchycookie", "crepaspmkinpie", "theemonster395",
-      "kittenb0y", "spacebarninja", "your_friend6254", "brodblox09", "poolroxjosh",
-      "cornyflex", "catfederation", "dinosscar"
+      "ax_titan", "bm6", "brodblox09", "califerr", "catfederation", "ccjjkk95",
+      "cornyflex", "crepaspmkinpie", "crunchycookie", "dinosscar", "itzbeasty",
+      "jeanmajid", "kittenb0y", "poolroxjosh", "spacebarninja", "theemonster395",
+      "vactricaking", "veyscold", "your_friend6254", "zheaevyline", "zruby"
     ])
+
 
     const usernameDisplayMap = {
       zruby: ".zruby",
