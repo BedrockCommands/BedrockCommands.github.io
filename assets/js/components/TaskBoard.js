@@ -118,15 +118,20 @@ export default {
                       </button>
 
                       <div class="tb-assigned-users" v-if="task.users && task.users.length">
-                        <img
+                        <a
                           v-for="(username, idx) in task.users"
                           :key="idx"
-                          :src="'/assets/images/avatars/' + username.trim() + '.webp'"
-                          :alt="username"
-                          :title="'Assigned to ' + (usernameDisplayMap[username] || username)"
-                        />
+                          :href="'https://github.com/' + username.trim()"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img
+                            :src="'/assets/images/avatars/' + username.trim() + '.webp'"
+                            :alt="username"
+                            :title="'Assigned to ' + (usernameDisplayMap[username] || username)"
+                          />
+                        </a>
                       </div>
-                    </div>
 
                     <button v-if="canEdit" @click="deleteTask(tbIndex, binIndex, taskIndex)" class="tb-delete-task">❌</button>
                   </li>
