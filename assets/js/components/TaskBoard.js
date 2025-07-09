@@ -121,7 +121,8 @@ export default {
                         <a
                           v-for="(username, idx) in task.users"
                           :key="idx"
-                          :href="'https://github.com/' + username.trim()"
+                          @click="handleUserClick(username.trim(), $event)"
+                          href="#"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -342,6 +343,20 @@ export default {
       })
     })
 
+    async function handleUserClick(username, event) {
+      event.preventDefault()
+      
+      try {
+        const response = await fetch(`https://api.github.com/users/${username}`)
+        if (response.ok) {
+          const newWindow = window.open(`https://github.com/${username}`, '_blank', 'noopener,noreferrer')
+          if (newWindow) newWindow.opener = null
+        }
+      } catch (error) {
+        console.warn(`Failed to verify user: ${username}`)
+      }
+    }
+
     return {
       loading,
       user,
@@ -366,7 +381,8 @@ export default {
       knownUsernames,
       usernameDisplayMap,
       startGithubLogin,
-      logout
+      logout,
+      handleUserClick
     }
   }
 }
