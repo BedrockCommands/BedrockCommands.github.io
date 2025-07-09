@@ -1,6 +1,6 @@
 # Bedrock Commands Community Website
 
-This repository contains the source code for the [Bedrock Commands Community Website](https://bedrockcommands.github.io/).
+This repository contains the source code for the [Bedrock Commands Community Website](https://bedrockcommands.org).
 
 ## Development Setup
 
