@@ -25,7 +25,7 @@ export default {
           </div>
         </div>
 
-        <div class="tb-container">
+        <div class="tb-container" :class="{ 'tb-container-logged-in': canEdit }">
           <div v-for="(taskboard, tbIndex) in taskboards" :key="tbIndex" class="tb">
             <div class="tb-header">
               <textarea

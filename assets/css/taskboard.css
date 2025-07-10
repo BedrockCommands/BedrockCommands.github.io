@@ -10,6 +10,12 @@
     font: 30px "Minecraft Regular";
 }
 
+@media (max-width: 600px) {
+  .tb-user-info {
+    font-size: 15px;
+  }
+}
+
 .tb-login-btn {
     display: flex;
     justify-content: space-between;
@@ -54,6 +60,12 @@
     border-radius: 50%;
 }
 
+@media (max-width: 600px) {
+  .tb-login-btn img, .tb-logout-btn img {
+    width: 20px;
+  }
+}
+
 .tb-login-btn p, .tb-logout-btn p {
     padding: 6px;
     padding-top: 2px;
@@ -61,6 +73,12 @@
     font-size: 24px;
     font-weight: bolder;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (max-width: 600px) {
+  .tb-login-btn p, .tb-logout-btn p {
+    font-size: 12px;
+  }
 }
 
 .tb-add-tb {
@@ -71,6 +89,12 @@
     padding-top: 8px;
     margin: 15px;
     border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+  .tb-add-tb {
+    font-size: 0.7em;
+  }
 }
 
 .tb-view-only-msg {
@@ -87,6 +111,12 @@
     margin-left: 15px;
 }
 
+@media (max-width: 600px) {
+  .tb-view-only-msg {
+    font-size: 10px;
+  }
+}
+
 .tb-loading {
     color: #ffffff;
     border-radius: 2px;
@@ -96,6 +126,12 @@
     margin-top: 25px;
     margin-bottom: 10px;
     font: 30px "Minecraft Regular";
+}
+
+@media (max-width: 600px) {
+  .tb-loading {
+    font-size: 15px;
+  }
 }
 
 .tb-container {
@@ -113,6 +149,21 @@
   margin-left: 15px;
 }
 
+@media (max-width: 600px) {
+  .tb-container {
+    flex-direction: column;
+    align-items: stretch;
+    overflow-x: visible;
+    overflow-y: visible;
+    scroll-snap-type: none;
+    transform: none;
+    margin-bottom: 15px;
+  }
+  .tb-container-logged-in {
+    margin-bottom: 450px;
+  }
+}
+
 .tb-container > .tb {
   transform: rotateX(180deg);
   min-width: 300px;
@@ -120,7 +171,8 @@
 
 @media (max-width: 600px) {
   .tb-container > .tb {
-    width: 350px;
+    transform: none;
+  min-width: 100px;;
   }
 }
 
@@ -142,7 +194,17 @@
     border-radius: 10px;
     perspective: 1000px;
     border: 1px solid #ffffff50;
-    margin-top: 450px;
+    margin-top: 15px;
+}
+
+.tb-container-logged-in {
+    margin-bottom: 450px;
+}
+
+@media (max-width: 600px) {
+  .tb {
+    margin-top: 0px;
+  }
 }
 
 .tb-title {
@@ -423,7 +485,7 @@
     border: #ffffff00;
     outline: #00000000;
     color: #ffffff;
-    margin-right: 6px;
+    margin-right: 1px;
     font-size: 15px;
     cursor: pointer;
     padding: 0px;
@@ -487,8 +549,10 @@
   height: auto;
   background-color: #ffffff;
   border-radius: 25px;
-  padding: 4px;
+  padding-top: 4px;
+  padding-left: 5px;
   padding-right: 0px;
+  padding-bottom: 1px;
 }
 
 .tb-assigned-users img {
