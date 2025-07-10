@@ -220,6 +220,7 @@ export default {
       } else {
         delete board._isGhost
       }
+      saveTaskboards()
     }
 
     function createGhostBin(tbIndex) {
@@ -234,6 +235,7 @@ export default {
       } else {
         delete bin._isGhost
       }
+      saveTaskboards()
     }
 
     function createGhostTask(tbIndex, binIndex) {
@@ -248,12 +250,14 @@ export default {
       } else {
         delete task._isGhost
       }
+      saveTaskboards()
     }
 
     function toggleTask(tbIndex, binIndex, taskIndex) {
       const task = taskboards.value[tbIndex].bins[binIndex].tasks[taskIndex]
       if (!canEdit.value) return
       task.checked = !task.checked
+      saveTaskboards()
     }
 
     function toggleAssignPopup(tbIndex, binIndex, taskIndex, event) {
@@ -272,6 +276,7 @@ export default {
       task.showPopup = false
       task.filteredSuggestions = []
       activePopupTask.value = null
+      saveTaskboards()
     }
 
     function filterSuggestions(task) {
@@ -332,8 +337,33 @@ export default {
       })
     }
 
+    async function fetchTaskboards() {
+    try {
+      const res = await fetch('/api/taskboards')
+      if (!res.ok) throw new Error('Failed to load')
+      const data = await res.json()
+      taskboards.value = data
+    } catch (err) {
+      console.error('Failed to load taskboards', err)
+      taskboards.value = []
+    }
+  }
+
+  async function saveTaskboards() {
+    if (!canEdit.value) return
+    try {
+      await fetch('/api/taskboards', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(taskboards.value)
+      })
+    } catch (err) {
+      console.error('Failed to save taskboards', err)
+    }
+  }
+
     onMounted(() => {
-      fetchUser()
+      fetchUser().then(() => fetchTaskboards())
       nextTick(() => {
         document.querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input').forEach(autoResize)
       })
@@ -345,11 +375,20 @@ export default {
       canEdit,
       taskboards,
       createGhostTaskboard,
-      deleteTaskboard: (i) => taskboards.value.splice(i, 1),
       createGhostBin,
-      deleteBin: (tbI, bI) => taskboards.value[tbI].bins.splice(bI, 1),
       createGhostTask,
-      deleteTask: (tbI, bI, tI) => taskboards.value[tbI].bins[bI].tasks.splice(tI, 1),
+      deleteTaskboard: (i) => {
+        taskboards.value.splice(i, 1)
+        saveTaskboards()
+      },
+      deleteBin: (tbI, bI) => {
+        taskboards.value[tbI].bins.splice(bI, 1)
+        saveTaskboards()
+      },
+      deleteTask: (tbI, bI, tI) => {
+        taskboards.value[tbI].bins[bI].tasks.splice(tI, 1)
+        saveTaskboards()
+      },
       toggleTask,
       finalizeTaskboard,
       finalizeBin,
