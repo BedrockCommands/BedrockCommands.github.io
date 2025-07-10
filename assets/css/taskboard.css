@@ -399,7 +399,12 @@
     list-style: none;
     padding-left: 0;
     overflow: visible;
+    margin-bottom: 10px;
 }
+
+.tb-tasks-container-logged-in {
+    margin-bottom: 0px;
+  }
 
 .tb-tasks-container li {
     background-color: #ffffff50;

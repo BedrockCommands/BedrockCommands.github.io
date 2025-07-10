@@ -76,7 +76,16 @@ export default {
                     rows="1"
                   ></textarea>
                   <h2 v-else class="tb-bin-title">{{ bin.title }}</h2>
-                  <button v-if="canEdit" @click="deleteBin(tbIndex, binIndex)" class="tb-delete-bin">❌</button>
+                  <button
+                    v-if="canEdit"
+                    @click="deleteBin(tbIndex, binIndex)"
+                    class="tb-delete-bin"
+                  >❌</button>
+                  <button
+                    v-else
+                    class="tb-delete-bin"
+                    @click="toggleBinVisibility(tbIndex, binIndex)"
+                  >{{ bin.expanded ? '❌' : '👁️' }}</button>
                 </div>
 
                 <p v-if="!canEdit">{{ bin.description }}</p>
@@ -89,7 +98,7 @@ export default {
                   class="tb-bin-desc-input"
                 ></textarea>
 
-                <ul class="tb-tasks-container">
+                <ul class="tb-tasks-container" :class="{ 'tb-tasks-container-logged-in': canEdit }" v-show="canEdit || bin.expanded">
                   <li v-for="(task, taskIndex) in bin.tasks" :key="taskIndex">
                     <label>
                       <input
@@ -109,14 +118,12 @@ export default {
                       ></textarea>
                       <span v-else>{{ task.text }}</span>
                     </label>
-
                     <div class="tb-creator-box">
                       <button v-if="canEdit" @click="(e) => toggleAssignPopup(tbIndex, binIndex, taskIndex, e)" class="tb-assign-btn" title="Assign creator">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
                           <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
                         </svg>
                       </button>
-
                       <div class="tb-assigned-users" v-if="task.users && task.users.length">
                         <a
                           v-for="(username, idx) in task.users"
@@ -133,8 +140,8 @@ export default {
                           />
                         </a>
                       </div>
-
-                    <button v-if="canEdit" @click="deleteTask(tbIndex, binIndex, taskIndex)" class="tb-delete-task">❌</button>
+                      <button v-if="canEdit" @click="deleteTask(tbIndex, binIndex, taskIndex)" class="tb-delete-task">❌</button>
+                    </div>
                   </li>
                 </ul>
                 <div v-if="canEdit">
@@ -148,15 +155,7 @@ export default {
           </div>
         </div>
 
-        <!-- Global Popup -->
-        <div
-          v-if="activePopupTask?.showPopup"
-          class="tb-popup"
-          :style="{
-            top: activePopupTask.popupY + 'px',
-            left: activePopupTask.popupX + 'px'
-          }"
-        >
+        <div v-if="activePopupTask?.showPopup" class="tb-popup" :style="{ top: activePopupTask.popupY + 'px', left: activePopupTask.popupX + 'px' }">
           <input
             v-model="activePopupTask.userInput"
             @input="filterSuggestions(activePopupTask)"
@@ -167,11 +166,7 @@ export default {
             autofocus
           />
           <ul v-if="activePopupTask.filteredSuggestions.length" class="tb-suggestions">
-            <li
-              v-for="(suggestion, i) in activePopupTask.filteredSuggestions"
-              :key="i"
-              @mousedown.prevent="selectSuggestion(activePopupTask, suggestion)"
-            >
+            <li v-for="(suggestion, i) in activePopupTask.filteredSuggestions" :key="i" @mousedown.prevent="selectSuggestion(activePopupTask, suggestion)">
               {{ usernameDisplayMap[suggestion] || suggestion }}
             </li>
           </ul>
@@ -179,35 +174,35 @@ export default {
       </div>
   `,
   setup() {
-    const loading = ref(true) // set back to true
+    const loading = ref(true)
     const user = ref({ loggedIn: false, id: null, name: null, picture: null })
-    const canEdit = ref(false) // set back to false
+    const canEdit = ref(false)
     const taskboards = ref([])
 
-    // List of GitHub user IDs allowed to edit
-    const allowedGithubIDs = [
-      124172979, 84600834, 99989764
-    ]
-
-    const knownUsernames = ref([
-      "ax_titan", "bm6", "brodblox09", "califerr", "catfederation", "ccjjkk95",
-      "cornyflex", "crepaspmkinpie", "crunchycookie", "dinosscar", "itzbeasty",
-      "jeanmajid", "kittenb0y", "poolroxjosh", "spacebarninja", "theemonster395",
-      "vactricaking", "veyscold", "your_friend6254", "zheaevyline", "zruby"
-    ])
-
-
-    const usernameDisplayMap = {
-      zruby: ".zruby",
-      bm6: "bm6."
-    }
-
+    const allowedGithubIDs = [124172979, 84600834, 99989764]
+    const knownUsernames = ref(["ax_titan", "bm6", "brodblox09", "califerr", "catfederation", "ccjjkk95", "cornyflex", "crepaspmkinpie", "crunchycookie", "dinosscar", "itzbeasty", "jeanmajid", "kittenb0y", "poolroxjosh", "spacebarninja", "theemonster395", "vactricaking", "veyscold", "your_friend6254", "zheaevyline", "zruby"])
+    const usernameDisplayMap = { zruby: ".zruby", bm6: "bm6." }
     const activePopupTask = ref(null)
 
     function autoResize(event) {
       const el = event.target
       el.style.height = 'auto'
       el.style.height = el.scrollHeight + 'px'
+    }
+
+    function toggleBinVisibility(tbIndex, binIndex) {
+      const bin = taskboards.value[tbIndex].bins[binIndex]
+      bin.expanded = !bin.expanded
+    }
+
+    function collapseAllBinsIfNeeded() {
+      if (!canEdit.value) {
+        taskboards.value.forEach(taskboard => {
+          taskboard.bins.forEach(bin => {
+            bin.expanded = false
+          })
+        })
+      }
     }
 
     function createGhostTaskboard() {
@@ -225,7 +220,7 @@ export default {
     }
 
     function createGhostBin(tbIndex) {
-      taskboards.value[tbIndex].bins.push({ title: '', description: '', labels: [], tasks: [], _isGhost: true })
+      taskboards.value[tbIndex].bins.push({ title: '', description: '', labels: [], tasks: [], expanded: true, _isGhost: true })
       nextTick(() => document.querySelectorAll('.tb-bin-title-input').forEach(autoResize))
     }
 
@@ -239,18 +234,7 @@ export default {
     }
 
     function createGhostTask(tbIndex, binIndex) {
-      taskboards.value[tbIndex].bins[binIndex].tasks.push({
-        text: '',
-        checked: false,
-        user: null,
-        userInput: '',
-        users: [],
-        showPopup: false,
-        filteredSuggestions: [],
-        popupX: 0,
-        popupY: 0,
-        _isGhost: true
-      })
+      taskboards.value[tbIndex].bins[binIndex].tasks.push({ text: '', checked: false, user: null, userInput: '', users: [], showPopup: false, filteredSuggestions: [], popupX: 0, popupY: 0, _isGhost: true })
       nextTick(() => document.querySelectorAll('.tb-tasks-input').forEach(autoResize))
     }
 
@@ -299,9 +283,18 @@ export default {
       task.filteredSuggestions = []
     }
 
-    function deleteTaskboard(tbIndex) { taskboards.value.splice(tbIndex, 1) }
-    function deleteBin(tbIndex, binIndex) { taskboards.value[tbIndex].bins.splice(binIndex, 1) }
-    function deleteTask(tbIndex, binIndex, taskIndex) { taskboards.value[tbIndex].bins[binIndex].tasks.splice(taskIndex, 1) }
+    async function handleUserClick(username, event) {
+      event.preventDefault()
+      try {
+        const response = await fetch(`https://api.github.com/users/${username}`)
+        if (response.ok) {
+          const newWindow = window.open(`https://github.com/${username}`, '_blank', 'noopener,noreferrer')
+          if (newWindow) newWindow.opener = null
+        }
+      } catch (error) {
+        console.warn(`Failed to verify user: ${username}`)
+      }
+    }
 
     async function fetchUser() {
       try {
@@ -320,20 +313,20 @@ export default {
         canEdit.value = false
       } finally {
         loading.value = false
+        collapseAllBinsIfNeeded()
       }
     }
 
     function startGithubLogin() {
-      // Redirect to your GitHub OAuth login endpoint
       window.location.href = '/api/github-login'
     }
 
     function logout() {
-      fetch('/api/github-logout', { method: 'POST', credentials: 'include' })
-        .then(() => {
-          user.value = { loggedIn: false, id: null, name: null, picture: null }
-          canEdit.value = false
-        })
+      fetch('/api/github-logout', { method: 'POST', credentials: 'include' }).then(() => {
+        user.value = { loggedIn: false, id: null, name: null, picture: null }
+        canEdit.value = false
+        collapseAllBinsIfNeeded()
+      })
     }
 
     onMounted(() => {
@@ -343,31 +336,17 @@ export default {
       })
     })
 
-    async function handleUserClick(username, event) {
-      event.preventDefault()
-      
-      try {
-        const response = await fetch(`https://api.github.com/users/${username}`)
-        if (response.ok) {
-          const newWindow = window.open(`https://github.com/${username}`, '_blank', 'noopener,noreferrer')
-          if (newWindow) newWindow.opener = null
-        }
-      } catch (error) {
-        console.warn(`Failed to verify user: ${username}`)
-      }
-    }
-
     return {
       loading,
       user,
       canEdit,
       taskboards,
       createGhostTaskboard,
-      deleteTaskboard,
+      deleteTaskboard: (i) => taskboards.value.splice(i, 1),
       createGhostBin,
-      deleteBin,
+      deleteBin: (tbI, bI) => taskboards.value[tbI].bins.splice(bI, 1),
       createGhostTask,
-      deleteTask,
+      deleteTask: (tbI, bI, tI) => taskboards.value[tbI].bins[bI].tasks.splice(tI, 1),
       toggleTask,
       finalizeTaskboard,
       finalizeBin,
@@ -382,7 +361,8 @@ export default {
       usernameDisplayMap,
       startGithubLogin,
       logout,
-      handleUserClick
+      handleUserClick,
+      toggleBinVisibility
     }
   }
 }
