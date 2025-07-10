@@ -1,6 +1,7 @@
 ---
 title: Cook Off | Tasks
 layout: default
+permalink: /projects/cook-off/tasks/
 ---
 
 <div id="task-board"></div>
