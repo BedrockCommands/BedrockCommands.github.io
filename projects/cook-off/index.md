@@ -81,7 +81,7 @@ To contribute and become a part of the 'Cook-Off!' project, please join the [Bed
       <path d="M15 4h5v5" />
     </svg>
     </div>
-    <a href="/projects/cook-off"
+    <a href="/projects/cook-off/tasks"
     class="stretched-link">
     </a>
   </div>
