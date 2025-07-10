@@ -1,9 +1,8 @@
 name = "bedrockcommands-site"
-main = "functions"
-
+main = "functions/index.js"
+compatibility_date = "2025-06-27"
 account_id = "bf9744ec6bdd4a1f355c598117051213"
 workers_dev = true
-compatibility_date = "2025-06-27"
 
 [env.production]
 route = "https://bedrockcommands.org/*"
