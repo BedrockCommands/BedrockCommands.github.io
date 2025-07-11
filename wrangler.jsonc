@@ -17,8 +17,8 @@
   ],
   "env": {
     "production": {
-      "route": "https://bedrockcommands.org/*",
-      "zone_id": "6a5430c369bfb62a8a015e24d018818c",
+      "route": "https://bedrockcommands.org/api/*",
+      "zone_id": "…",
       "durable_objects": {
         "bindings": [
           { "name": "TASKBOARD", "class_name": "TaskboardStorage" }
