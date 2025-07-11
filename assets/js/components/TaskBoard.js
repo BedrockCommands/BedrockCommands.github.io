@@ -98,6 +98,23 @@ export default {
                   class="tb-bin-desc-input"
                 ></textarea>
 
+                <div class="tb-progress-wrapper" v-if="bin.tasks.length > 0">
+                  <span class="tb-progress-text">
+                    {{ bin.tasks.filter(t => t.checked).length }} / {{ bin.tasks.length }}
+                  </span>
+                  <div class="tb-progress-bar">
+                    <div
+                    class="tb-progress-fill"
+                    :style="{ width: (bin.tasks.filter(t => t.checked).length / bin.tasks.length * 100) + '%' }"
+                    ></div>
+                  </div>
+                  <span class="tb-progress-percent">
+                    {{
+                    Math.round(bin.tasks.filter(t => t.checked).length / bin.tasks.length * 100)
+                    }}%
+                  </span>
+                </div>
+
                 <ul class="tb-tasks-container" :class="{ 'tb-tasks-container-logged-in': canEdit }" v-show="canEdit || bin.expanded">
                   <li v-for="(task, taskIndex) in bin.tasks" :key="taskIndex">
                     <label>
