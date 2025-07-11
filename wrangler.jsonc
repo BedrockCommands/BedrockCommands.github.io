@@ -15,12 +15,6 @@
       "new_sqlite_classes": ["TaskboardStorage"]
     }
   ],
-  "bindings": [
-    {
-      "name": "ASSETS",
-      "type": "fetcher"
-    }
-  ],
   "env": {
     "production": {
       "route": "https://bedrockcommands.org/*",
