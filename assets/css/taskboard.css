@@ -581,3 +581,55 @@
     background-color: #555;
     border-radius: 5px;
 }
+
+.tb-confirm-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.tb-confirm-box {
+  background: #222;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  max-width: 320px;
+  width: 90%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+.tb-confirm-btn, .tb-cancel-btn {
+  cursor: pointer;
+  padding: 8px 16px;
+  margin: 10px 5px 0 5px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.tb-confirm-btn {
+  background-color: #a72828;
+  color: white;
+}
+
+.tb-confirm-btn:hover {
+  background-color: #882121;
+}
+
+.tb-cancel-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+.tb-cancel-btn:hover {
+  background-color: #5a6268;
+}

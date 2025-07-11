@@ -38,7 +38,7 @@ export default {
                 rows="1"
               ></textarea>
               <h2 v-else class="tb-title">{{ taskboard.title }}</h2>
-              <button v-if="canEdit" @click="deleteTaskboard(tbIndex)" class="tb-delete-tb">❌</button>
+              <button v-if="canEdit" @click="confirmDeleteTaskboard(tbIndex)" class="tb-delete-tb">❌</button>
             </div>
 
             <img :src="taskboard.image || '/assets/images/banners/default.png'" v-if="taskboard.image" />
@@ -78,7 +78,7 @@ export default {
                   <h2 v-else class="tb-bin-title">{{ bin.title }}</h2>
                   <button
                     v-if="canEdit"
-                    @click="deleteBin(tbIndex, binIndex)"
+                    @click="confirmDeleteBin(tbIndex, binIndex)"
                     class="tb-delete-bin"
                   >❌</button>
                   <button
@@ -171,7 +171,16 @@ export default {
             </li>
           </ul>
         </div>
+
+        <div v-if="confirmDialog.show" class="tb-confirm-dialog">
+          <div class="tb-confirm-box">
+            <p>{{ confirmDialog.message }}</p>
+            <button @click="confirmDialog.onConfirm" class="tb-confirm-btn">Confirm</button>
+            <button @click="confirmDialog.show = false" class="tb-cancel-btn">Cancel</button>
+          </div>
+        </div>
       </div>
+    </div>
   `,
   setup() {
     const loading = ref(true)
@@ -374,6 +383,31 @@ export default {
     })
   })
 
+  const confirmDialog = ref({ show: false, message: '', onConfirm: null })
+
+    function showConfirmDialog(message, onConfirm) {
+      confirmDialog.value.message = message
+      confirmDialog.value.onConfirm = () => {
+      onConfirm()
+      confirmDialog.value.show = false
+      }
+      confirmDialog.value.show = true
+    }
+
+    function confirmDeleteTaskboard(i) {
+      showConfirmDialog('Are you sure you want to delete this taskboard?', () => {
+        taskboards.value.splice(i, 1)
+        saveTaskboards()
+      })
+    }
+
+    function confirmDeleteBin(tbI, bI) {
+      showConfirmDialog('Are you sure you want to delete this card and all its tasks?', () => {
+        taskboards.value[tbI].bins.splice(bI, 1)
+        saveTaskboards()
+      })
+    }
+
     return {
       loading,
       user,
@@ -409,7 +443,11 @@ export default {
       startGithubLogin,
       logout,
       handleUserClick,
-      toggleBinVisibility
+      toggleBinVisibility,
+      confirmDialog,
+      showConfirmDialog,
+      confirmDeleteTaskboard,
+      confirmDeleteBin
     }
   }
 }
