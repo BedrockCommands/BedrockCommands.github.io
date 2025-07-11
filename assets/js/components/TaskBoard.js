@@ -362,12 +362,17 @@ export default {
     }
   }
 
-    onMounted(() => {
-      fetchUser().then(() => fetchTaskboards())
-      nextTick(() => {
-        document.querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input').forEach(autoResize)
+  onMounted(() => {
+    fetchUser().then(() => {
+      fetchTaskboards().then(() => {
+        collapseAllBinsIfNeeded()
       })
     })
+
+    nextTick(() => {
+      document.querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input').forEach(autoResize)
+    })
+  })
 
     return {
       loading,
