@@ -4,11 +4,13 @@
   "compatibility_date": "2025-06-27",
   "workers_dev": true,
   "account_id": "bf9744ec6bdd4a1f355c598117051213",
+
   "durable_objects": {
     "bindings": [
       { "name": "TASKBOARD", "class_name": "TaskboardStorage" }
     ]
   },
+
   "migrations": [
     {
       "tag": "v1",
@@ -17,13 +19,19 @@
   ],
   "env": {
     "production": {
-      "route": "https://bedrockcommands.org/api/*",
-      "zone_id": "…",
+      "route": "https://bedrockcommands.org/*",
+      "zone_id": "6a5430c369bfb62a8a015e24d018818c",
       "durable_objects": {
         "bindings": [
           { "name": "TASKBOARD", "class_name": "TaskboardStorage" }
         ]
-      }
+      },
+      "bindings": [
+        {
+          "name": "ASSETS",
+          "type": "fetcher"
+        }
+      ]
     }
   }
 }

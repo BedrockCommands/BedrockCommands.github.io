@@ -30,7 +30,8 @@ export default {
       return githubUser.onRequestGet({ request, env, ctx })
     }
 
-    return new Response('Not Found', { status: 404 })
+    // Let Cloudflare Pages handle everything else (static files, HTML, etc.)
+    return env.ASSETS.fetch(request)
   }
 }
 
