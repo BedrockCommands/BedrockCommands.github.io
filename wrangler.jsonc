@@ -17,7 +17,7 @@
   ],
   "env": {
     "production": {
-      "route": "https://bedrockcommands.org/api/*",
+      "route": "https://bedrockcommands.org/api/taskboards",
       "zone_id": "YOUR_ZONE_ID",
       "durable_objects": {
         "bindings": [
