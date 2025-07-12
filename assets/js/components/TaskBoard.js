@@ -63,8 +63,22 @@ export default {
             <div class="tb-bins-container">
               <div v-for="(bin, binIndex) in taskboard.bins" :key="binIndex" class="tb-bin">
                 <div class="tb-labels-container">
-                  <span v-for="label in bin.labels" :key="label" class="tb-label">{{ label }}</span>
+                  <span v-for="(label, labelIndex) in bin.labels" :key="labelIndex" class="tb-label">
+                    {{ label }}
+                    <button v-if="canEdit" class="tb-label-remove" @click="removeLabel(tbIndex, binIndex, labelIndex)">❌</button>
+                  </span>
+
+                  <div v-if="canEdit" class="tb-add-label-wrapper">
+                    <input
+                    v-model="newLabelInputs[tbIndex + '-' + binIndex]"
+                    @keyup.enter="addLabel(tbIndex, binIndex)"
+                    placeholder="Label Name"
+                    class="tb-add-label-input"
+                    />
+                    <button @click="addLabel(tbIndex, binIndex)" class="tb-add-label">✅</button>
+                  </div>
                 </div>
+
                 <div class="tb-header">
                   <textarea
                     v-if="canEdit"
@@ -204,6 +218,7 @@ export default {
     const user = ref({ loggedIn: false, id: null, name: null, picture: null })
     const canEdit = ref(false)
     const taskboards = ref([])
+    const newLabelInputs = ref({})
 
     // Authorized to Manage Tasks: califerr, jeanmajid, spacebarninja, zheaevyline, zruby
     const allowedGithubIDs = [84600834, 124172979, 142201872, 99989764, 96641071]
@@ -392,8 +407,8 @@ export default {
     fetchUser().then(() => {
       fetchTaskboards().then(() => {
         collapseAllBinsIfNeeded()
+        })
       })
-    })
 
     nextTick(() => {
       document.querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input').forEach(autoResize)
@@ -423,6 +438,24 @@ export default {
         taskboards.value[tbI].bins.splice(bI, 1)
         saveTaskboards()
       })
+    }
+
+    function addLabel(tbIndex, binIndex) {
+      const key = `${tbIndex}-${binIndex}`
+      const newLabel = (newLabelInputs.value[key] || '').trim()
+      if (!newLabel) return
+      const bin = taskboards.value[tbIndex].bins[binIndex]
+      if (!bin.labels.includes(newLabel)) {
+      bin.labels.push(newLabel)
+      saveTaskboards()
+      }
+      newLabelInputs.value[key] = ''
+    }
+
+    function removeLabel(tbIndex, binIndex, labelIndex) {
+      const bin = taskboards.value[tbIndex].bins[binIndex]
+      bin.labels.splice(labelIndex, 1)
+      saveTaskboards()
     }
 
     return {
@@ -464,7 +497,10 @@ export default {
       confirmDialog,
       showConfirmDialog,
       confirmDeleteTaskboard,
-      confirmDeleteBin
+      confirmDeleteBin,
+      newLabelInputs,
+      addLabel,
+      removeLabel
     }
   }
 }
