@@ -410,6 +410,30 @@
   cursor: pointer;
 }
 
+.tb-label-low {
+  background-color: #b8ff4e; /* green */
+  color: #168300;
+  border-color: #111111;
+}
+
+.tb-label-medium {
+  background-color: #6d4c00; /* amber */
+  color: #fde279;
+  border-color: #111111;
+}
+
+.tb-label-high {
+  background-color: #bd0000; /* deep orange */
+  color: #ffc7e9;
+  border-color: #111111;
+}
+
+.tb-label-very-high {
+  background-color: #9f0000; /* red */
+  color: #fff760;
+  border-color: #111111;
+}
+
 .tb-bin h2 {
     padding-top: 0px;
     padding-bottom: 15px;
@@ -428,11 +452,13 @@
   gap: 10px;
   font-size: 0.85rem;
   margin: 0 0 6px;
+  padding-left: 10px;
 }
 
 .tb-progress-text, .tb-progress-percent {
   min-width: 40px;
   color: #ddd;
+  font: 15px "Minecraft Regular", monospace;
 }
 
 .tb-progress-bar {

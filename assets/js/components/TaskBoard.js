@@ -63,7 +63,7 @@ export default {
             <div class="tb-bins-container">
               <div v-for="(bin, binIndex) in taskboard.bins" :key="binIndex" class="tb-bin">
                 <div class="tb-labels-container">
-                  <span v-for="(label, labelIndex) in bin.labels" :key="labelIndex" class="tb-label">
+                  <span v-for="(label, labelIndex) in bin.labels" :key="labelIndex" class="tb-label" :class="getLabelColorClass(label)">
                     {{ label }}
                     <button v-if="canEdit" class="tb-label-remove" @click="removeLabel(tbIndex, binIndex, labelIndex)">❌</button>
                   </span>
@@ -458,6 +458,22 @@ export default {
       saveTaskboards()
     }
 
+    function getLabelColorClass(label) {
+      const normalized = label.trim().toLowerCase()
+      switch (normalized) {
+        case 'low':
+          return 'tb-label-low'
+        case 'medium':
+          return 'tb-label-medium'
+        case 'high':
+          return 'tb-label-high'
+        case 'very high':
+          return 'tb-label-very-high'
+        default:
+          return ''
+      }
+    }
+
     return {
       loading,
       user,
@@ -500,7 +516,8 @@ export default {
       confirmDeleteBin,
       newLabelInputs,
       addLabel,
-      removeLabel
+      removeLabel,
+      getLabelColorClass
     }
   }
 }
