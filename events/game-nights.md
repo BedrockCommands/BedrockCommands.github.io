@@ -36,6 +36,30 @@ title: Game Nights
 
 <div class="gallery">
 
+<div class="banner" data-year="2025">
+        <div class="banner-inner">
+            <div class="banner-front">
+                <span class="banner-game-title">TNT TAG</span>
+                <span class="banner-game-author">By @crunchycookie</span>
+                <div class="tags">
+                    <span class="tag">2025</span>
+                    <span class="tag">August</span>
+                </div>
+                <img class="banner-image" 
+     src="/assets/images/banners/GameNight_7.Screenie.png" 
+     data-alt-src="/assets/images/banners/GameNight_7.Thumbnail.png">
+                <div class="card">
+                    <h3 class="card-button-title">Download Map</h3>
+                    <a href="https://www.mediafire.com/file/7mqlyq59zymywm3/lcTfNcT_Tagr_V1.0.mcworld/file" 
+                    class="stretched-link" 
+                    target="_blank" 
+                    rel="noopener noreferrer">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 <div class="banner" data-year="2025">
         <div class="banner-inner">

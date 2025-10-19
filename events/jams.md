@@ -24,6 +24,7 @@ title: Jams
       <li><label><input type="checkbox" value="Educational Jam" checked> Educational Jam</label></li>
     </ul>
   </div>
+
 </div>
 
 
@@ -40,6 +41,33 @@ title: Jams
 </script>
 
 <div class="gallery">
+<div class="banner" data-year="2025" data-jam="Command Jam">
+        <div class="banner-inner">
+            <div class="banner-front">
+                <div class="tags">
+                    <span class="tag">2025</span>
+                    <span class="tag">June</span>
+                    <span class="tag">Command Jam</span>
+                </div>
+                <img src="/assets/images/banners/Jam_Banner_2025.Jun.gif" alt="Jam Banner 2025 June">
+                <div class="rank-tags">
+                    <span class="tag first-place">1st: @1309boy</span>
+                    <span class="tag second-place">2nd: ---</span>
+                    <span class="tag third-place">3rd: ---</span>
+                </div>
+            </div>
+            <div class="banner-back">
+                <p><strong>🔫 Theme: Sci-Fi Weapons</strong></p>
+                <p>Any creation that clearly depicts a Sci-Fi weapon and effectively utilises at least one FMBE.</p>
+                <p><strong>⭐ Participants:</strong></p>
+                <p class="participants">
+                1. 💎200 @1309boy<br>
+                2. 💎000 --<br>
+                3. 💎000 --<br>
+                </p>
+            </div>
+        </div>
+    </div>
 <div class="banner" data-year="2024" data-jam="Christmas Jam">
         <div class="banner-inner">
             <div class="banner-front">

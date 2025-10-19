@@ -64,6 +64,46 @@ title: Banners
 </div>
 
 <div class="gallery">
+<div class="banner" data-year="2025" data-month="October" data-author="@crunchiecookie">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2025</span>
+      <span class="tag">October</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2025.Oct.png" alt="Server Banner 2025 October">
+  </div>
+</div>  
+
+<div class="banner" data-year="2025" data-month="September" data-author="@itzbeasty">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2025</span>
+      <span class="tag">September</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2025.Sep.png" alt="Server Banner 2025 September">
+  </div>
+</div>
+
+<div class="banner" data-year="2025" data-month="August" data-author="@kittenb0y">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2025</span>
+      <span class="tag">August</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2025.Aug.png" alt="Server Banner 2025 August">
+  </div>
+</div>
+
+<div class="banner" data-year="2025" data-month="July" data-author="@majimellow">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2025</span>
+      <span class="tag">July</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2025.Jul.png" alt="Server Banner 2025 July">
+  </div>
+</div>
+
 <div class="banner" data-year="2025" data-month="June" data-author="@crunchycookie">
   <div class="banner-wrapper">
     <div class="tags">
