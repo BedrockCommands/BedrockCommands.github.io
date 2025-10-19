@@ -39,6 +39,7 @@ title: Game Nights
 <div class="banner" data-year="2025">
         <div class="banner-inner">
             <div class="banner-front">
+            <img class="banner-logo" src="/assets/images/banners/GameNight_7.Logo.jpg">
                 <span class="banner-game-title">TNT TAG</span>
                 <span class="banner-game-author">By @crunchycookie</span>
                 <div class="tags">
