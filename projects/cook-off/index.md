@@ -3,7 +3,7 @@ layout: default
 title: Cook-Off!
 description: >-
   Project overview and other info related to the Cook-Off! project.
-image: https://bedrockcommands.org/assets/images/projects/2025.Logo.png
+image: /assets/images/projects/2025.Logo.png
 ---
 
 <br>
