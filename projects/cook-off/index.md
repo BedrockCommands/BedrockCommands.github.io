@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Cook-Off!
+description: >-
+  Project overview and other info related to the Cook-Off! project.
 ---
 
 <br>
@@ -115,7 +117,7 @@ To contribute and become a part of the 'Cook-Off!' project, please join the [Bed
   </div>
    <div class="card">
     <div class="card-button-content">
-      <h3 class="card-button-title">Contributing Guide for Builders</h3>
+      <h3 class="card-button-title">Contributors Guide</h3>
       <svg class="go-to-link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
