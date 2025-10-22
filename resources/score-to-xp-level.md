@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Score to XP Level
+description: >-
+  This function pack allows you to convert a selected player's score from a specified scoreboard objective into XP levels.
 ---
 
 <br>

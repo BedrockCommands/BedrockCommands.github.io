@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Raycasting
+description: >-
+  This function pack is an editable raycasting template. It allows you to run your desired commands when your targets look at entities, blocks, or specific block faces.
 ---
 
 <br>

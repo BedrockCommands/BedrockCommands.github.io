@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Jams
+description: >-
+  Bedrock Commands Community command and other holiday themed competitions.
 ---
 
 <div class="filters">

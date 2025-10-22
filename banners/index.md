@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Banners
+description: >-
+  Bedrock Commands Community Monthly Banners.
 ---
 
 <div class="filters">

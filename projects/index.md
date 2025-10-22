@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Projects
+description: >-
+  Bedrock Commands Community Projects.
 ---
 
 <div class="gallery">

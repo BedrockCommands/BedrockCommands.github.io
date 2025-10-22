@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Game Nights
+description: >-
+  Bedrock Commands Community game-night screenies and map downloads.
 ---
 
 <script>

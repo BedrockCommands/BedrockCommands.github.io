@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Annual Map Making Program
+description: >-
+  Info pertaining to the BCC annual map-making program.
 ---
 
 ## Welcome to the Annual Map Making Program!! 💫

@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Coordinate to Scores
+description: >-
+  This function pack allows you to retrieve a player’s coordinates and store them on a scoreboard. It also enables teleportation to any coordinate specified by scoreboard values.
 ---
 
 <br>

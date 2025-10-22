@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Resources
+description: >-
+  Bedrock Commands Community command tools, templates, and other useful resources.
 ---
 
 # Resources

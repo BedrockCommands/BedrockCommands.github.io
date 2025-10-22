@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Multiplayer Position Derangement
+description: >-
+  This function pack allows you to randomly relocate all selected targets among each other, ensuring no target remains in its original position.
 ---
 
 <br>
