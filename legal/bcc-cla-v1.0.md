@@ -3,6 +3,7 @@ title: BCC-CLA V1.0
 layout: default
 description: >-
   Preview of the Bedrock Commands Community Contributor License Agreement (BCC-CLA) v1.0
+image: /assets/images/logo.png
 ---
 <br>
 
