@@ -1,9 +1,7 @@
 ---
 layout: default
 title: Bedrock Commands Community (BCC)
-images:
-        - /assets/images/logo.png
-        - /assets/images/banners/community-banner.png
+image: /assets/images/logo.png
 ---
 
 <br>
