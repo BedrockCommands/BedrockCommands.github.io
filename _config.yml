@@ -8,6 +8,12 @@ baseurl: ""
 url: "https://bedrockcommands.org"
 github_username: BedrockCommands
 
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/images/logo.png
+
 # Build settings
 theme: minima
 plugins:
