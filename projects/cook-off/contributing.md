@@ -4,6 +4,7 @@ layout: default
 description: >-
   Step by step contributing guide for builders.
 image: /assets/images/projects/2025.Logo.png
+color: "#FA6D0B"
 ---
 
 ## Step by Step Contributing Guide for Builders
@@ -14,7 +15,7 @@ image: /assets/images/projects/2025.Logo.png
 
 2. Sign in to your Github account. If you don't have an account, simply click **Sign in with Google** for convenience.
 
-3. Go to **[BCC Cook-Off Repository](<https://github.com/BedrockCommands/Cook-Off>)**
+3. Go to **[BCC Cook-Off! Repository](<https://github.com/BedrockCommands/Cook-Off>)**
 
 4. Click on **Fork** button.
 
