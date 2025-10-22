@@ -1,6 +1,8 @@
 ---
 title: BCC-PL V1.0
 layout: default
+description: >-
+   Bedrock Commands Community Public License (BCC-PL) v1.0
 ---
 <br>
 

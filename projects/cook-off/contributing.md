@@ -1,6 +1,9 @@
 ---
-title: Cook Off | Builders Contributing Guide
+title: Cook-Off! | Builders Contributing Guide
 layout: default
+description: >-
+  Step by step contributing guide for builders.
+image: /assets/images/projects/2025.Logo.png
 ---
 
 ## Step by Step Contributing Guide for Builders

@@ -2,7 +2,7 @@
 layout: default
 title: Cook-Off!
 description: >-
-  Project overview and other info related to the Cook-Off! project.
+  Project overview and other key info related to the Cook-Off! project as part of the Bedrock Commands Community's annual map making program 2025.
 image: /assets/images/projects/2025.Logo.png
 ---
 

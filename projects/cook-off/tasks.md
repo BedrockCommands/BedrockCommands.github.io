@@ -2,6 +2,9 @@
 title: Cook Off | Tasks
 layout: default
 permalink: /projects/cook-off/tasks/
+description: >-
+  BCC Task Management System for the Cook-Off! Project.
+image: /assets/images/projects/2025.Logo.png
 ---
 
 <div id="task-board"></div>
