@@ -1,67 +1,95 @@
 const { ref, onMounted, nextTick } = Vue
+const draggable = window.vuedraggable
 
-export default {
+const TaskBoard = {
   template: `
     <div>
-      <div v-if="loading" class="tb-loading">Loading user info...</div>
+  <div v-if="loading" class="tb-loading">Loading user info...</div>
 
-      <div v-else>
-        <div v-if="!user.loggedIn">
-          <button @click="startGithubLogin" class="tb-login-btn"><img src="/assets/images/github_logo.svg"/><p>Login with Github to Manage Task Boards</p></button>
-        </div>
+  <div v-else>
+    <div v-if="!user.loggedIn">
+      <button @click="startGithubLogin" class="tb-login-btn">
+        <img src="/assets/images/github_logo.svg" />
+        <p>Login with Github to Manage Task Boards</p>
+      </button>
+    </div>
 
-        <div v-else>
-          <div class="tb-user-info">
-            Welcome, {{ user.name }}.
-            <button @click="logout" class="tb-logout-btn"><img v-if="user.picture" :src="user.picture" alt="Avatar" class="tb-user-avatar" /><p>Log out</p></button>
-          </div>
+    <div v-else>
+      <div class="tb-user-info">
+        Welcome, {{ user.name }}.
+        <button @click="logout" class="tb-logout-btn">
+          <img v-if="user.picture" :src="user.picture" alt="Avatar" class="tb-user-avatar" />
+          <p>Log out</p>
+        </button>
+      </div>
 
-          <div v-if="canEdit" class="tb-edit-toolbar">
-            <button @click="createGhostTaskboard" class="tb-add-tb">✚ New Taskboard</button>
-          </div>
+      <div v-if="canEdit" class="tb-edit-toolbar">
+        <button @click="createGhostTaskboard" class="tb-add-tb">✚ New Taskboard</button>
+      </div>
 
-          <div v-else class="tb-view-only-msg">
-            <br>This page is view only — only authorized users may edit.
-          </div>
-        </div>
+      <div v-else class="tb-view-only-msg">
+        <br />This page is view only — only authorized users may edit.
+      </div>
+    </div>
 
-        <div class="tb-container" :class="{ 'tb-container-logged-in': canEdit }">
-          <div v-for="(taskboard, tbIndex) in taskboards" :key="tbIndex" class="tb">
-            <div class="tb-header">
-              <textarea
-                v-if="canEdit"
-                v-model="taskboard.title"
-                @input="autoResize($event)"
-                @blur="finalizeTaskboard(tbIndex)"
-                placeholder="Title"
-                class="tb-title-input"
-                rows="1"
-              ></textarea>
-              <h2 v-else class="tb-title">{{ taskboard.title }}</h2>
-              <button v-if="canEdit" @click="confirmDeleteTaskboard(tbIndex)" class="tb-delete-tb">❌</button>
-            </div>
-
-            <img :src="taskboard.image || '/assets/images/banners/default.png'" v-if="taskboard.image" />
-            <input
-              v-if="canEdit"
-              v-model="taskboard.image"
-              @blur="finalizeTaskboard(tbIndex)"
-              placeholder="Insert Image URL"
-              class="tb-img-input"
-            />
-
-            <p v-if="!canEdit">{{ taskboard.description }}</p>
+    <!-- 🔹 Draggable Taskboards -->
+    <draggable
+      v-model="taskboards"
+  group="taskboards"
+  item-key="id"
+  animation="400"
+  class="tb-container"
+  :class="{ 'tb-container-logged-in': canEdit }"
+  :disabled="!canEdit"
+  ghost-class="tb-drag-ghost"
+  :clone="cloneTaskboard"
+    >
+      <template #item="{ element: taskboard, index: tbIndex }">
+        <div class="tb">
+          <div class="tb-header">
             <textarea
               v-if="canEdit"
-              v-model="taskboard.description"
+              v-model="taskboard.title"
               @input="autoResize($event)"
               @blur="finalizeTaskboard(tbIndex)"
-              placeholder="Description"
-              class="tb-desc-input"
+              placeholder="Title"
+              class="tb-title-input"
+              rows="1"
             ></textarea>
+            <h2 v-else class="tb-title">{{ taskboard.title }}</h2>
+            <button v-if="canEdit" @click="confirmDeleteTaskboard(tbIndex)" class="tb-delete-tb">❌</button>
+          </div>
 
-            <div class="tb-bins-container">
-              <div v-for="(bin, binIndex) in taskboard.bins" :key="binIndex" class="tb-bin">
+          <img :src="taskboard.image || '/assets/images/banners/default.png'" v-if="taskboard.image" />
+          <input
+            v-if="canEdit"
+            v-model="taskboard.image"
+            @blur="finalizeTaskboard(tbIndex)"
+            placeholder="Insert Image URL"
+            class="tb-img-input"
+          />
+
+          <p v-if="!canEdit">{{ taskboard.description }}</p>
+          <textarea
+            v-if="canEdit"
+            v-model="taskboard.description"
+            @input="autoResize($event)"
+            @blur="finalizeTaskboard(tbIndex)"
+            placeholder="Description"
+            class="tb-desc-input"
+          ></textarea>
+
+          <!-- 🔹 Draggable Bins -->
+          <draggable
+            v-model="taskboard.bins"
+            group="bins"
+            item-key="id"
+            animation="400"
+            class="tb-bins-container"
+            :disabled="!canEdit"
+          >
+            <template #item="{ element: bin, index: binIndex }">
+              <div class="tb-bin">
                 <div class="tb-labels-container">
                   <span v-for="(label, labelIndex) in bin.labels" :key="labelIndex" class="tb-label" :class="getLabelColorClass(label)">
                     {{ label }}
@@ -70,10 +98,10 @@ export default {
 
                   <div v-if="canEdit" class="tb-add-label-wrapper">
                     <input
-                    v-model="newLabelInputs[tbIndex + '-' + binIndex]"
-                    @keyup.enter="addLabel(tbIndex, binIndex)"
-                    placeholder="Label Name"
-                    class="tb-add-label-input"
+                      v-model="newLabelInputs[tbIndex + '-' + binIndex]"
+                      @keyup.enter="addLabel(tbIndex, binIndex)"
+                      placeholder="Label Name"
+                      class="tb-add-label-input"
                     />
                     <button @click="addLabel(tbIndex, binIndex)" class="tb-add-label">✅</button>
                   </div>
@@ -118,101 +146,117 @@ export default {
                   </span>
                   <div class="tb-progress-bar">
                     <div
-                    class="tb-progress-fill"
-                    :style="{ width: (bin.tasks.filter(t => t.checked).length / bin.tasks.length * 100) + '%' }"
+                      class="tb-progress-fill"
+                      :style="{ width: (bin.tasks.filter(t => t.checked).length / bin.tasks.length * 100) + '%' }"
                     ></div>
                   </div>
                   <span class="tb-progress-percent">
                     {{
-                    Math.round(bin.tasks.filter(t => t.checked).length / bin.tasks.length * 100)
+                      Math.round(bin.tasks.filter(t => t.checked).length / bin.tasks.length * 100)
                     }}%
                   </span>
                 </div>
 
-                <ul class="tb-tasks-container" :class="{ 'tb-tasks-container-logged-in': canEdit }" v-show="canEdit || bin.expanded">
-                  <li v-for="(task, taskIndex) in bin.tasks" :key="taskIndex">
-                    <label>
-                      <input
-                        type="checkbox"
-                        :checked="task.checked"
-                        :disabled="!canEdit"
-                        @change="toggleTask(tbIndex, binIndex, taskIndex)"
-                      />
-                      <textarea
-                        v-if="canEdit"
-                        v-model="task.text"
-                        @input="autoResize($event)"
-                        @blur="finalizeTask(tbIndex, binIndex, taskIndex)"
-                        placeholder="Task Text"
-                        class="tb-tasks-input"
-                        rows="1"
-                      ></textarea>
-                      <span v-else>{{ task.text }}</span>
-                    </label>
-                    <div class="tb-creator-box">
-                      <button v-if="canEdit" @click="(e) => toggleAssignPopup(tbIndex, binIndex, taskIndex, e)" class="tb-assign-btn" title="Assign creator">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
-                          <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
-                        </svg>
-                      </button>
-                      <div class="tb-assigned-users" v-if="task.users && task.users.length">
-                        <a
-                          v-for="(username, idx) in task.users"
-                          :key="idx"
-                          @click="handleUserClick(username.trim(), $event)"
-                          href="#"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img
-                            :src="'/assets/images/avatars/' + username.trim() + '.webp'"
-                            :alt="username"
-                            :title="'Assigned to ' + (usernameDisplayMap[username] || username)"
-                          />
-                        </a>
+                <!-- 🔹 Draggable Tasks -->
+                <draggable
+                  v-model="bin.tasks"
+                  group="tasks"
+                  item-key="id"
+                  animation="400"
+                  class="tb-tasks-container"
+                  :disabled="!canEdit"
+                  v-show="canEdit || bin.expanded"
+                >
+                  <template #item="{ element: task, index: taskIndex }">
+                    <li>
+                      <label>
+                        <input
+                          type="checkbox"
+                          :checked="task.checked"
+                          :disabled="!canEdit"
+                          @change="toggleTask(tbIndex, binIndex, taskIndex)"
+                        />
+                        <textarea
+                          v-if="canEdit"
+                          v-model="task.text"
+                          @input="autoResize($event)"
+                          @blur="finalizeTask(tbIndex, binIndex, taskIndex)"
+                          placeholder="Task Text"
+                          class="tb-tasks-input"
+                          rows="1"
+                        ></textarea>
+                        <span v-else>{{ task.text }}</span>
+                      </label>
+                      <div class="tb-creator-box">
+                        <button v-if="canEdit" @click="(e) => toggleAssignPopup(tbIndex, binIndex, taskIndex, e)" class="tb-assign-btn" title="Assign creator">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
+                            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
+                          </svg>
+                        </button>
+                        <div class="tb-assigned-users" v-if="task.users && task.users.length">
+                          <a
+                            v-for="(username, idx) in task.users"
+                            :key="idx"
+                            @click="handleUserClick(username.trim(), $event)"
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <img
+                              :src="'/assets/images/avatars/' + username.trim() + '.webp'"
+                              :alt="username"
+                              :title="'Assigned to ' + (usernameDisplayMap[username] || username)"
+                            />
+                          </a>
+                        </div>
+                        <button v-if="canEdit" @click="deleteTask(tbIndex, binIndex, taskIndex)" class="tb-delete-task">❌</button>
                       </div>
-                      <button v-if="canEdit" @click="deleteTask(tbIndex, binIndex, taskIndex)" class="tb-delete-task">❌</button>
-                    </div>
-                  </li>
-                </ul>
+                    </li>
+                  </template>
+                </draggable>
+
                 <div v-if="canEdit">
                   <button @click="createGhostTask(tbIndex, binIndex)" class="tb-add-task">✚ Add a Task</button>
                 </div>
               </div>
-              <div v-if="canEdit">
-                <button @click="createGhostBin(tbIndex)" class="tb-add-bin">✚ Add a Card</button>
-              </div>
-            </div>
+            </template>
+          </draggable>
+
+          <div v-if="canEdit">
+            <button @click="createGhostBin(tbIndex)" class="tb-add-bin">✚ Add a Card</button>
           </div>
         </div>
+      </template>
+    </draggable>
 
-        <div v-if="activePopupTask?.showPopup" class="tb-popup" :style="{ top: activePopupTask.popupY + 'px', left: activePopupTask.popupX + 'px' }">
-          <input
-            v-model="activePopupTask.userInput"
-            @input="filterSuggestions(activePopupTask)"
-            @keydown.enter.prevent="assignUser(activePopupTask)"
-            @blur="assignUser(activePopupTask)"
-            placeholder="user1, user2"
-            class="tb-popup-input"
-            autofocus
-          />
-          <ul v-if="activePopupTask.filteredSuggestions.length" class="tb-suggestions">
-            <li v-for="(suggestion, i) in activePopupTask.filteredSuggestions" :key="i" @mousedown.prevent="selectSuggestion(activePopupTask, suggestion)">
-              {{ usernameDisplayMap[suggestion] || suggestion }}
-            </li>
-          </ul>
-        </div>
+    <div v-if="activePopupTask?.showPopup" class="tb-popup" :style="{ top: activePopupTask.popupY + 'px', left: activePopupTask.popupX + 'px' }">
+      <input
+        v-model="activePopupTask.userInput"
+        @input="filterSuggestions(activePopupTask)"
+        @keydown.enter.prevent="assignUser(activePopupTask)"
+        @blur="assignUser(activePopupTask)"
+        placeholder="user1, user2"
+        class="tb-popup-input"
+        autofocus
+      />
+      <ul v-if="activePopupTask.filteredSuggestions.length" class="tb-suggestions">
+        <li v-for="(suggestion, i) in activePopupTask.filteredSuggestions" :key="i" @mousedown.prevent="selectSuggestion(activePopupTask, suggestion)">
+          {{ usernameDisplayMap[suggestion] || suggestion }}
+        </li>
+      </ul>
+    </div>
 
-        <div v-if="confirmDialog.show" class="tb-confirm-dialog">
-          <div class="tb-confirm-box">
-            <p>{{ confirmDialog.message }}</p>
-            <button @click="confirmDialog.onConfirm" class="tb-confirm-btn">Confirm</button>
-            <button @click="confirmDialog.show = false" class="tb-cancel-btn">Cancel</button>
-          </div>
-        </div>
+    <div v-if="confirmDialog.show" class="tb-confirm-dialog">
+      <div class="tb-confirm-box">
+        <p>{{ confirmDialog.message }}</p>
+        <button @click="confirmDialog.onConfirm" class="tb-confirm-btn">Confirm</button>
+        <button @click="confirmDialog.show = false" class="tb-cancel-btn">Cancel</button>
       </div>
     </div>
+  </div>
+</div>
   `,
+  components: { draggable },
   setup() {
     const loading = ref(true)
     const user = ref({ loggedIn: false, id: null, name: null, picture: null })
@@ -250,7 +294,14 @@ export default {
     }
 
     function createGhostTaskboard() {
-      taskboards.value.unshift({ title: '', description: '', image: '', bins: [], _isGhost: true })
+      taskboards.value.unshift({
+        id: Date.now() + Math.random(), // unique stable key
+        title: '',
+        description: '',
+        image: '',
+        bins: [],
+        _isGhost: true
+      })
       nextTick(() => document.querySelectorAll('.tb-title-input').forEach(autoResize))
     }
 
@@ -264,9 +315,10 @@ export default {
       saveTaskboards()
     }
 
+    // When creating bins/tasks, add a unique id
     function createGhostBin(tbIndex) {
-      taskboards.value[tbIndex].bins.push({ title: '', description: '', labels: [], tasks: [], expanded: true, _isGhost: true })
-      nextTick(() => document.querySelectorAll('.tb-bin-title-input').forEach(autoResize))
+    taskboards.value[tbIndex].bins.push({ id: Date.now(), title: '', description: '', labels: [], tasks: [], expanded: true, _isGhost: true })
+    nextTick(() => document.querySelectorAll('.tb-bin-title-input').forEach(autoResize))
     }
 
     function finalizeBin(tbIndex, binIndex) {
@@ -280,8 +332,13 @@ export default {
     }
 
     function createGhostTask(tbIndex, binIndex) {
-      taskboards.value[tbIndex].bins[binIndex].tasks.push({ text: '', checked: false, user: null, userInput: '', users: [], showPopup: false, filteredSuggestions: [], popupX: 0, popupY: 0, _isGhost: true })
-      nextTick(() => document.querySelectorAll('.tb-tasks-input').forEach(autoResize))
+    taskboards.value[tbIndex].bins[binIndex].tasks.push({
+      id: Date.now() + Math.random(), // unique
+      text: '',
+      checked: false,
+      users: [],
+      _isGhost: true
+      })
     }
 
     function finalizeTask(tbIndex, binIndex, taskIndex) {
@@ -521,3 +578,5 @@ export default {
     }
   }
 }
+
+window.TaskBoard = TaskBoard

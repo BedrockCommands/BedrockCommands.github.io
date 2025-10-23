@@ -19,6 +19,7 @@
   "homepage": "https://github.com/BedrockCommands/BedrockCommands.github.io#readme",
   "dependencies": {
     "vue": "^3.5.17",
-    "vue-kanban": "^1.8.0"
+    "vue-kanban": "^1.8.0",
+    "vuedraggable": "^4.1.0"
   }
 }
