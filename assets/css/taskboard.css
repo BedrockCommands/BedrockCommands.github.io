@@ -518,7 +518,7 @@
       padding-right: 0px;
       margin-left: 0px;
       margin-right: 10px;
-      font-size: 1.2rem;
+      font: 0.7em Arial, sans-serif;
       justify-content: space-between;
       box-sizing: border-box;
   }
