@@ -94,7 +94,7 @@ Note: You only need to create a fork and sign the CLA once. For any future contr
 
 18. Once done, open the 'GitHub Desktop' application again.
 
-19. Enter Commit title and description (make sure to also include Discord username) and click the **Commit** button.
+19. Enter Commit title and description (make sure to also include Discord username) and click the **Commit** button - then click the **Push** button in the prompt.
 
 20. On your browser, open the forked `Cook-Off` repo in your GitHub profile.
 
