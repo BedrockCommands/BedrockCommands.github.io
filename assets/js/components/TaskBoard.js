@@ -475,6 +475,10 @@ const TaskBoard = {
     })
   })
 
+  watch(taskboards, (newVal) => {
+    if (canEdit.value) saveTaskboards()
+  }, { deep: true })
+
   const confirmDialog = ref({ show: false, message: '', onConfirm: null })
 
     function showConfirmDialog(message, onConfirm) {
