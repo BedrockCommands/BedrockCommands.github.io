@@ -44,6 +44,9 @@ const TaskBoard = {
   ghost-class="tb-drag-ghost"
   :clone="cloneTaskboard"
   @end="() => nextTick(saveTaskboards)"
+  :scroll="true"
+  :scrollSensitivity="120"
+  :scrollSpeed="15"
     >
       <template #item="{ element: taskboard, index: tbIndex }">
         <div class="tb">
@@ -89,6 +92,9 @@ const TaskBoard = {
             class="tb-bins-container"
             :disabled="!canEdit"
             @end="() => nextTick(saveTaskboards)"
+            :scroll="true"
+            :scrollSensitivity="120"
+            :scrollSpeed="15"
           >
             <template #item="{ element: bin, index: binIndex }">
               <div class="tb-bin">
@@ -169,6 +175,9 @@ const TaskBoard = {
                   :disabled="!canEdit"
                   v-show="canEdit || bin.expanded"
                   @end="() => nextTick(saveTaskboards)"
+                  :scroll="true"
+                  :scrollSensitivity="120"
+                  :scrollSpeed="15"
                 >
                   <template #item="{ element: task, index: taskIndex }">
                     <li>
