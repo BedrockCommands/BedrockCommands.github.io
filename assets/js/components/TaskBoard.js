@@ -1,4 +1,4 @@
-const { ref, onMounted, nextTick } = Vue
+const { ref, onMounted, nextTick, watch } = Vue
 const draggable = window.vuedraggable
 
 const TaskBoard = {
