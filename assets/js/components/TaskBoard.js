@@ -43,7 +43,7 @@ const TaskBoard = {
   :disabled="!canEdit"
   ghost-class="tb-drag-ghost"
   :clone="cloneTaskboard"
-  @end="saveTaskboards"
+  @end="() => nextTick(saveTaskboards)"
     >
       <template #item="{ element: taskboard, index: tbIndex }">
         <div class="tb">
@@ -88,7 +88,7 @@ const TaskBoard = {
             animation="400"
             class="tb-bins-container"
             :disabled="!canEdit"
-            @end="saveTaskboards"
+            @end="() => nextTick(saveTaskboards)"
           >
             <template #item="{ element: bin, index: binIndex }">
               <div class="tb-bin">
@@ -168,7 +168,7 @@ const TaskBoard = {
                   class="tb-tasks-container"
                   :disabled="!canEdit"
                   v-show="canEdit || bin.expanded"
-                  @end="saveTaskboards"
+                  @end="() => nextTick(saveTaskboards)"
                 >
                   <template #item="{ element: task, index: taskIndex }">
                     <li>
