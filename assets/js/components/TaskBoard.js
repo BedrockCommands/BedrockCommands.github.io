@@ -159,9 +159,36 @@ const TaskBoard = {
                   </span>
                 </div>
 
+                <div class="tb-filter-bar" v-if="bin.tasks.length > 0 && (!canEdit.value ? bin.expanded : true)">
+                  <input
+                    type="text"
+                    v-model="ensureFilterState(tbIndex, binIndex).searchUser"
+                    placeholder="Filter by username..."
+                    class="tb-filter-input"
+                  />
+
+                  <div class="tb-filter-buttons">
+                    <button
+                      class="tb-btn-completed"
+                      :class="{ active: ensureFilterState(tbIndex, binIndex).showCompleted }"
+                      @click="toggleFilter(tbIndex, binIndex, 'showCompleted')"
+                    >
+                      COMPLETED
+                    </button>
+
+                    <button
+                      class="tb-btn-pending"
+                      :class="{ active: ensureFilterState(tbIndex, binIndex).showPending }"
+                      @click="toggleFilter(tbIndex, binIndex, 'showPending')"
+                    >
+                      PENDING
+                    </button>
+                  </div>
+                </div>
+
                 <!-- 🔹 Draggable Tasks -->
                 <draggable
-                  v-model="bin.tasks"
+                  v-model="taskboards[tbIndex].bins[binIndex].tasks"
                   group="tasks"
                   item-key="id"
                   animation="400"
@@ -171,7 +198,7 @@ const TaskBoard = {
                   @end="() => nextTick(saveTaskboards)"
                 >
                   <template #item="{ element: task, index: taskIndex }">
-                    <li>
+                   <li v-show="shouldShowTask(tbIndex, binIndex, task)">
                       <label>
                         <input
                           type="checkbox"
@@ -212,7 +239,7 @@ const TaskBoard = {
                             />
                           </a>
                         </div>
-                        <button v-if="canEdit" @click="deleteTask(tbIndex, binIndex, taskIndex)" class="tb-delete-task">❌</button>
+                        <button v-if="canEdit" @click="confirmDeleteTask(tbIndex, binIndex, taskIndex)" class="tb-delete-task">❌</button>
                       </div>
                     </li>
                   </template>
@@ -266,6 +293,7 @@ const TaskBoard = {
     const canEdit = ref(false)
     const taskboards = ref([])
     const newLabelInputs = ref({})
+    const filterState = ref({})
 
     // Authorized to Manage Tasks: califerr, jeanmajid, spacebarninja, zheaevyline, zruby
     const allowedGithubIDs = [84600834, 124172979, 142201872, 99989764, 96641071]
@@ -284,6 +312,13 @@ const TaskBoard = {
     function toggleBinVisibility(tbIndex, binIndex) {
       const bin = taskboards.value[tbIndex].bins[binIndex]
       bin.expanded = !bin.expanded
+
+      taskboards.value.forEach((tb, tbi) => {
+        if (tbi !== tbIndex) return
+        tb.bins.forEach((b, bi) => {
+        if (bi !== binIndex) b.expanded = false
+        })
+      })
     }
 
     function collapseAllBinsIfNeeded() {
@@ -491,7 +526,7 @@ const TaskBoard = {
     }
 
     function confirmDeleteTaskboard(i) {
-      showConfirmDialog('Are you sure you want to delete this taskboard?', () => {
+      showConfirmDialog('Are you sure you want to delete this taskboard and all its cards?', () => {
         taskboards.value.splice(i, 1)
         saveTaskboards()
       })
@@ -500,6 +535,13 @@ const TaskBoard = {
     function confirmDeleteBin(tbI, bI) {
       showConfirmDialog('Are you sure you want to delete this card and all its tasks?', () => {
         taskboards.value[tbI].bins.splice(bI, 1)
+        saveTaskboards()
+      })
+    }
+
+    function confirmDeleteTask(tbI, bI, tI) {
+      showConfirmDialog('Are you sure you want to delete this task?', () => {
+        taskboards.value[tbI].bins[bI].tasks.splice(tI, 1)
         saveTaskboards()
       })
     }
@@ -536,6 +578,64 @@ const TaskBoard = {
         default:
           return ''
       }
+    }
+
+    function toggleFilter(tbIndex, binIndex, type) {
+      const filter = ensureFilterState(tbIndex, binIndex)
+
+      if (filter[type]) {
+        filter.showCompleted = false
+        filter.showPending = false
+      } else {
+      filter.showCompleted = type === 'showCompleted'
+      filter.showPending = type === 'showPending'
+      }
+    }
+
+    function filteredTasks(tbIndex, binIndex) {
+      const binKey = `${tbIndex}-${binIndex}`
+      const bin = taskboards.value[tbIndex].bins[binIndex]
+      const filter = filterState.value[binKey] || { showCompleted: false, showPending: false, searchUser: '' }
+
+      return bin.tasks.filter(task => {
+    // Filter by username
+        const userMatch =
+          !filter.searchUser ||
+          (task.users && task.users.some(u => u.toLowerCase().includes(filter.searchUser.toLowerCase())))
+
+    // Filter by completion status
+        let statusMatch = true
+        if (filter.showCompleted && !filter.showPending) statusMatch = task.checked
+        if (!filter.showCompleted && filter.showPending) statusMatch = !task.checked
+        // Both active or both inactive → show all
+        return userMatch && statusMatch
+      })
+    }
+
+    function ensureFilterState(tbIndex, binIndex) {
+      const bin = taskboards.value[tbIndex].bins[binIndex]
+      if (!bin.tasks.length) return null
+
+      const key = `${tbIndex}-${binIndex}`
+      if (!filterState.value[key]) {
+        filterState.value[key] = { showChecked: true, showUnchecked: true, searchUser: '' }
+      }
+      return filterState.value[key]
+    }
+
+    function shouldShowTask(tbIndex, binIndex, task) {
+      const key = `${tbIndex}-${binIndex}`
+      const filter = filterState.value[key] || { showCompleted: false, showPending: false, searchUser: '' }
+
+      const userMatch =
+        !filter.searchUser ||
+        (task.users && task.users.some(u => u.toLowerCase().includes(filter.searchUser.toLowerCase())))
+
+      let statusMatch = true
+      if (filter.showCompleted && !filter.showPending) statusMatch = task.checked
+      if (!filter.showCompleted && filter.showPending) statusMatch = !task.checked
+
+      return userMatch && statusMatch
     }
 
     return {
@@ -578,10 +678,15 @@ const TaskBoard = {
       showConfirmDialog,
       confirmDeleteTaskboard,
       confirmDeleteBin,
+      confirmDeleteTask,
       newLabelInputs,
       addLabel,
       removeLabel,
-      getLabelColorClass
+      getLabelColorClass,
+      filteredTasks,
+      ensureFilterState,
+      toggleFilter,
+      shouldShowTask
     }
   }
 }
