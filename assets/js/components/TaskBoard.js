@@ -163,7 +163,7 @@ const TaskBoard = {
                   </span>
                 </div>
 
-                <div class="tb-filter-bar" v-if="bin.tasks.length > 0 && (!canEdit.value ? bin.expanded : true)">
+                <div class="tb-filter-bar" v-if="bin.tasks.length > 2 && (!canEdit.value ? bin.expanded : true)">
                   <input
                     type="text"
                     v-model="ensureFilterState(tbIndex, binIndex).searchUser"
