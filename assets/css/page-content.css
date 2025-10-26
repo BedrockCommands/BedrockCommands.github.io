@@ -129,6 +129,6 @@ p code, li code {
     padding: 2px 5px;
     border-radius: 4px;
     font-size: 0.95em;
-    word-break: break-word;
+    word-break: break-all;
     white-space: pre-wrap;
 }
