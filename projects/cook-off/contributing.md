@@ -10,102 +10,111 @@ color: "#FA6D0B"
 ## Step by Step Contributing Guide for Builders
 
 <br>
+1. Go to **[GitHub](https://github.com)**.
 
-1. Go to **[Github](<https://github.com>)**
+2. Sign in to your GitHub account. If you don’t have one, simply click **Sign in with Google**.
 
-2. Sign in to your Github account. If you don't have an account, simply click **Sign in with Google** for convenience.
+3. Visit the **[BCC Cook-Off! Repository](https://github.com/BedrockCommands/Cook-Off)**.
 
-3. Go to **[BCC Cook-Off! Repository](<https://github.com/BedrockCommands/Cook-Off>)**
+4. Click **Fork**.
 
-4. Click on **Fork** button.
+5. In the dropdown, select **+ Create a new fork**.
 
-5. In the button dropdown, click **+ Create a new fork** option.
+6. On the new page, click the green **Create fork** button (bottom right).
 
-6. In the new page, click the green **Create fork** button at the bottom right.
+7. Open the **worlds/contributions/** folder in your forked repository.
 
-7. Go to the **Worlds** folder.
+8. Click the **Add file** button (top right).
 
-8. Click **Add file** button in the top right corner.
+9. From the dropdown, select **Upload files**.
 
-9. Click **Upload files** option in the button drop down.
+10. Click **Choose your files**, then select the `.mcworld` or `.mcstructure` file you wish to contribute.
 
-10. Click **Choose your files** link in the new page.
+11. Scroll down and click the green **Commit changes** button (bottom left).
 
-11. Select the `.mcworld` or `.mcstructure` file you want to contribute.
+12. Click the **Contribute** button next to the **Sync fork** option.
 
-12. Scroll down and click the green **Commit changes** button in the bottom left.
+13. On the new page, add an optional title and description, then click the green **Create pull request** button.
 
-13. Now click the **Contribute** button next to the 'Sync fork' button.
+14. Wait a few seconds — you’ll see a message prompting you to sign the CLA.
 
-14. In the new page, write optional title and description. Then click the green **Create a pull request** button.
+15. Click the three dots on the CLA message → **View Details**.
 
-15. Wait few seconds and you will see a message to sign CLA.
+16. Review the CLA, fill in the required fields, and submit.
 
-16. Click the 3 dots on the CLA message. Then click **View Details**
+**Note:**
 
-17. Read the CLA, fill in the CLA fields, and you are done!
+The following only need to be done once:
+- Forking the repo
+- signing the CLA.
 
-Note: You only need to create a fork and sign the CLA once. For any future contributions, these aren't required. Simply click the **Sync fork** button in your forked repository and continue with the same steps from no. 7 to 14. If you face any issues, please ping @zheaEvyline and @jeanmajid (together) in the #cook-off-project forum channel on Discord. You may also DM privately.
+For future contributions, simply click **Sync fork** in your repository and repeat Steps 7–13.
 
+If you encounter any issues, please ping **@zheaEvyline**, **@jeanmajid**, and **@brodblox09** (together) in the **#cook-off-project** forum channel on Discord, or DM them directly.
+
+---
 
 ## Step by Step Contributing Guide for Devs
 
 <br>
+1. Go to **[GitHub](https://github.com)**.
 
-1. Go to **[Github](<https://github.com>)**
+2. Sign in to your account. If you don’t have one, simply click **Sign in with Google**.
 
-2. Sign in to your Github account. If you don't have an account, simply click **Sign in with Google** for convenience.
+3. Visit the **[BCC Cook-Off! Repository](https://github.com/BedrockCommands/Cook-Off)**.
 
-3. Go to **[BCC Cook-Off! Repository](<https://github.com/BedrockCommands/Cook-Off>)**
+4. Click **Fork**.
 
-4. Click on **Fork** button.
+5. In the dropdown, select **+ Create a new fork**.
 
-5. In the button dropdown, click **+ Create a new fork** option.
+6. On the new page, click the green **Create fork** button (bottom right).
 
-6. In the new page, click the green **Create fork** button at the bottom right.
+7. Open the **GitHub Desktop** app. If you don’t have it, **[download it here](https://github.com/apps/desktop?ref_product=desktop&ref_type=engagement&ref_style=button)**.
 
-7. Open the 'Github Desktop' application. **[Download here](https://github.com/apps/desktop?ref_product=desktop&ref_type=engagement&ref_style=button)**.
+8. Click **File** (top-left corner).
 
-8. Click **File** button in the top left corner.
+9. Select `your_username/Cook-Off` and click **Clone**.
 
-9. Select `your_username/Cook-Off` and click the **Clone** button.
+10. In GitHub Desktop, click **Fetch origin** (top-center).
+   - This ensures your local copy is up to date. Always fetch before making new changes.
 
-10. Click the **Fetch origin** at the top middle in the 'Github Desktop' application.
-    - This step is important to ensure you get the most up to date repo. Fetch origin any time you notice there are changes from others.
+11. Click **Show in Explorer** in the prompt.
 
-11. Click **Show in Explorer** button in the prompts.
+12. Navigate to `getting-started/` and run **`CookOffRepositorySetupTool.exe`.**
+   - **This links `behavior_pack/` to `com.mojang/development_behavior_packs/cook-off-bp/`.**
+   - **And links `resource_pack/` to `com.mojang/development_resource_packs/cook-off-rp/`.**
+   - ⭐ **This setup streamlines collaboration and testing as changes made in either location will automatically sync between your repo and Minecraft.**
 
-12. Copy the entire `Cook-Off/` folder to your `com.mojang/minecraftWorlds/` folder.
-    - Note: Please do not get rid of the original folder as you will need to use it to push changes.
+13. Return to GitHub Desktop and click **Open in Visual Studio Code**.  
+   - **[Download VS Code here](https://code.visualstudio.com/download)** if you don’t have it.
 
-13. Open the 'Visual Studio Code' application. **[Download here](https://code.visualstudio.com/download)**.
+14. **You can now start editing or adding new files 🎉**
+   - To test your work, launch Minecraft and import `Cook-Off!.mcworld` from `GitHub/Cook-Off/worlds/`.
 
-14. Click **File** button in the top left corner.
+15. When you’re done, open **GitHub Desktop** again.
 
-15. Select the **Open Folder** option.
+16. Enter a **commit title and description** (include your Discord username), then click **Commit** → **Push**.
 
-16. Navigate to `com.mojang/minecraftWorlds/` and select the `Cook-Off/` folder.
+17. In your browser, open your forked `Cook-Off` repo from your GitHub profile.
 
-17. **You may now start making changes or adding new files** 🎊
-    - To test if your code works as intended, simply launch Minecraft and load up a **Copy** of the "Cook-Off!" world to play-test.
-    - Once satisfied, simply replace the original `GitHub/Cook-Off/` folder with your `com.mojang/minecraftWorlds/Cook-Off/` folder.
-    - **IMPORTANT:** Strictly do not make changes to the world files in the root folder. Content such as `level.dat`, `level.dat_old`, or the `db/` folder must not be modified unless absolutely required.
-    - You can also play-test without creating a Copy of the "Cook-Off!' world. However, instead of replacing the entire folder, only replace the `behavior_packs/` and `resource_packs/` folders inside individually to avoid making unnecessary changes to the world files.
+18. Click **Contribute** (next to “Sync fork”).
 
-18. Once done, open the 'GitHub Desktop' application again.
+19. Add an optional title and description, then click the green **Create pull request** button.
 
-19. Enter Commit title and description (make sure to also include Discord username) and click the **Commit** button - then click the **Push** button in the prompt.
+20. Wait a few seconds—you’ll see a message to sign the CLA.
 
-20. On your browser, open the forked `Cook-Off` repo in your GitHub profile.
+21. Click the three dots on the CLA message → **View Details**.
 
-21. Now click the **Contribute** button next to the 'Sync fork' button.
+22. Read and fill out the CLA form. Once submitted, you’re done!
 
-22. In the new page, write optional title and description. Then click the green **Create a pull request** button.
+<br>
+**Note:**
 
-23. Wait few seconds and you will see a message to sign CLA.
+The following only need to be done once:
+- Forking the repo
+- running `CookOffRepositorySetupTool.exe`
+- signing the CLA.
 
-24. Click the 3 dots on the CLA message. Then click **View Details**
+For future contributions, just continue from **Step 10** onward.  
 
-25. Read the CLA, fill in the CLA fields, and you are done!
-
-Note: You only need to create a fork and sign the CLA once. For any future contributions, these aren't required. Simply click the **Sync fork** button in your forked repository and continue with the same steps from no. 10 to 22. If you face any issues, please ping @zheaEvyline and @jeanmajid (together) in the #cook-off-project forum channel on Discord. You may also DM privately.
+If you encounter any issues, please ping **@zheaEvyline**, **@jeanmajid**, and **@brodblox09** (together) in the **#cook-off-project** forum channel on Discord, or DM them directly.
