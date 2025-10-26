@@ -35,16 +35,18 @@ const TaskBoard = {
     <!-- 🔹 Draggable Taskboards -->
     <draggable
       v-model="taskboards"
-  group="taskboards"
-  item-key="id"
-  animation="400"
-  class="tb-container"
-  :class="{ 'tb-container-logged-in': canEdit }"
-  :disabled="!canEdit"
-  ghost-class="tb-drag-ghost"
-  :clone="cloneTaskboard"
-  @end="() => nextTick(saveTaskboards)"
-    >
+      group="taskboards"
+      item-key="id"
+      animation="400"
+      class="tb-container"
+      :class="{ 'tb-container-logged-in': canEdit }"
+      :disabled="!canEdit"
+      ghost-class="tb-drag-ghost"
+      :clone="cloneTaskboard"
+      @end="() => nextTick(saveTaskboards)"
+      :delay="canEdit ? 200 : 0"
+      :delay-on-touch-only="true"
+      >
       <template #item="{ element: taskboard, index: tbIndex }">
         <div class="tb">
           <div class="tb-header">
@@ -89,6 +91,8 @@ const TaskBoard = {
             class="tb-bins-container"
             :disabled="!canEdit"
             @end="() => nextTick(saveTaskboards)"
+            :delay="canEdit ? 200 : 0"
+            :delay-on-touch-only="true"
           >
             <template #item="{ element: bin, index: binIndex }">
               <div class="tb-bin">
@@ -196,6 +200,8 @@ const TaskBoard = {
                   :disabled="!canEdit"
                   v-show="canEdit || bin.expanded"
                   @end="() => nextTick(saveTaskboards)"
+                  :delay="canEdit ? 200 : 0"
+                  :delay-on-touch-only="true"
                 >
                   <template #item="{ element: task, index: taskIndex }">
                    <li v-show="shouldShowTask(tbIndex, binIndex, task)">
