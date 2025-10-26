@@ -504,6 +504,22 @@
   margin: 0px;
 }
 
+@media (max-width: 480px) {
+  .tb-filter-bar {
+    flex-wrap: wrap;
+  }
+
+  .tb-filter-input {
+    flex: 1 1 100%;
+    margin-bottom: 4px;
+  }
+
+  .tb-filter-buttons {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+  }
+}
+
 .tb-filter-buttons button {
   padding: 2px 8px;
   border: 2px solid transparent;
