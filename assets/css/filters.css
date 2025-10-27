@@ -43,7 +43,6 @@
     position: absolute;
     background-color: #000000;
     border: 1px solid #444;
-    width: 100%;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -59,7 +58,6 @@
     cursor: pointer;
     font-size: 1.2rem;
     font-family: "Minecraft Regular", Arial;
-    width: max-content;
   }
   
   .dropdown-menu li:hover {
