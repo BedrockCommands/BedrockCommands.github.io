@@ -303,7 +303,7 @@
       padding-left: 5px;
       padding-top: 0px;
       padding-bottom: 15px;
-      line-height: 1.5;
+      white-space: pre-wrap;
   }
 
   .tb-bins-container {
@@ -447,7 +447,7 @@
       padding-top: 0px;
       padding-bottom: 15px;
       font-size: 15px;
-      line-height: 1.5;
+      white-space: pre-wrap;
   }
 
   .tb-progress-wrapper {
