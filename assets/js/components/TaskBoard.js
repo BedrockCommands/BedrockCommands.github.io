@@ -42,7 +42,6 @@ const TaskBoard = {
       :class="{ 'tb-container-logged-in': canEdit }"
       :disabled="!canEdit"
       ghost-class="tb-drag-ghost"
-      :clone="cloneTaskboard"
       @end="() => nextTick(saveTaskboards)"
       :delay="canEdit ? 200 : 0"
       :delay-on-touch-only="true"
@@ -163,7 +162,7 @@ const TaskBoard = {
                   </span>
                 </div>
 
-                <div class="tb-filter-bar" v-if="bin.tasks.length > 2 && (!canEdit.value ? bin.expanded : true)">
+                <div class="tb-filter-bar" v-if="bin.tasks.length > 2 && (!canEdit ? bin.expanded : true)">
                   <input
                     type="text"
                     v-model="ensureFilterState(tbIndex, binIndex).searchUser"
@@ -346,7 +345,7 @@ const TaskBoard = {
         bins: [],
         _isGhost: true
       })
-      nextTick(() => document.querySelectorAll('.tb-title-input').forEach(autoResize))
+      nextTick(autoResizeAll)
     }
 
     function finalizeTaskboard(tbIndex) {
@@ -362,7 +361,7 @@ const TaskBoard = {
     // When creating bins/tasks, add a unique id
     function createGhostBin(tbIndex) {
     taskboards.value[tbIndex].bins.push({ id: Date.now(), title: '', description: '', labels: [], tasks: [], expanded: true, _isGhost: true })
-    nextTick(() => document.querySelectorAll('.tb-bin-title-input').forEach(autoResize))
+    nextTick(autoResizeAll)
     }
 
     function finalizeBin(tbIndex, binIndex) {
@@ -490,12 +489,7 @@ const TaskBoard = {
         taskboards.value = []
       } finally {
         nextTick(() => {
-          document
-            .querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input')
-            .forEach(el => {
-              el.style.height = 'auto'
-              el.style.height = el.scrollHeight + 'px'
-            })
+          autoResizeAll()
         })
       }
     }
@@ -518,8 +512,7 @@ const TaskBoard = {
       fetchTaskboards().then(() => {
         collapseAllBinsIfNeeded()
         nextTick(() => {
-          document.querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input')
-            .forEach(autoResize)
+          autoResizeAll()
         })
       })
     })
@@ -630,7 +623,7 @@ const TaskBoard = {
 
       const key = `${tbIndex}-${binIndex}`
       if (!filterState.value[key]) {
-        filterState.value[key] = { showChecked: true, showUnchecked: true, searchUser: '' }
+       filterState.value[key] = { showCompleted: false, showPending: false, searchUser: '' }
       }
       return filterState.value[key]
     }
@@ -651,17 +644,17 @@ const TaskBoard = {
     }
 
     watch(canEdit, (newVal) => {
-      if (newVal) {
-        nextTick(() => {
-          document
-            .querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input')
-            .forEach(el => {
-              el.style.height = 'auto'
-              el.style.height = el.scrollHeight + 'px'
-            })
-        })
-      }
+      if (newVal) nextTick(autoResizeAll)
     })
+
+    function autoResizeAll() {
+      const selectors = ['.tb-desc-input','.tb-bin-desc-input','.tb-title-input','.tb-bin-title-input','.tb-tasks-input']
+      document.querySelectorAll(selectors.join(', '))
+      .forEach(el => {
+        el.style.height = 'auto'
+        el.style.height = el.scrollHeight + 'px'
+      })
+    }
 
     return {
       loading,
