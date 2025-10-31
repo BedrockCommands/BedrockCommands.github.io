@@ -613,16 +613,13 @@ const TaskBoard = {
       const filter = filterState.value[binKey] || { showCompleted: false, showPending: false, searchUser: '' }
 
       return bin.tasks.filter(task => {
-    // Filter by username
         const userMatch =
           !filter.searchUser ||
           (task.users && task.users.some(u => u.toLowerCase().includes(filter.searchUser.toLowerCase())))
 
-    // Filter by completion status
         let statusMatch = true
         if (filter.showCompleted && !filter.showPending) statusMatch = task.checked
         if (!filter.showCompleted && filter.showPending) statusMatch = !task.checked
-        // Both active or both inactive → show all
         return userMatch && statusMatch
       })
     }
