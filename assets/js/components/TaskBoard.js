@@ -508,11 +508,11 @@ const TaskBoard = {
     fetchUser().then(() => {
       fetchTaskboards().then(() => {
         collapseAllBinsIfNeeded()
+        nextTick(() => {
+          document.querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input')
+            .forEach(autoResize)
         })
       })
-
-    nextTick(() => {
-      document.querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input').forEach(autoResize)
     })
   })
 

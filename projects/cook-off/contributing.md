@@ -80,7 +80,7 @@ If you encounter any issues, please ping **@zheaEvyline**, **@jeanmajid**, and *
 
 11. Click **Show in Explorer** in the prompt.
 
-12. Navigate to `getting-started/` and run **`CookOffRepositorySetupTool.exe`.**
+12. Navigate to `getting-started/` and run **`CookOffRepositorySetupTool.bat`.**
    - **This links `behavior_pack/` to `com.mojang/development_behavior_packs/cook-off-bp/`.**
    - **And links `resource_pack/` to `com.mojang/development_resource_packs/cook-off-rp/`.**
    - ⭐ **This setup streamlines collaboration and testing as changes made in either location will automatically sync between your repo and Minecraft.**
@@ -112,7 +112,7 @@ If you encounter any issues, please ping **@zheaEvyline**, **@jeanmajid**, and *
 
 The following only need to be done once:
 - Forking the repo
-- running `CookOffRepositorySetupTool.exe`
+- running `CookOffRepositorySetupTool.bat`
 - signing the CLA.
 
 For future contributions, just continue from **Step 10** onward.  

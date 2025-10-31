@@ -99,6 +99,10 @@ body.menu-open main {
     background: rgba(255, 255, 255, 0.3);
 }
 
+#nav-menu ul {
+    margin-left: 20px;
+}
+
 /* Overlay for dimming effect (applies only to screens with max-width 768px) */
 @media (max-width: 768px) {
     /* Disable content shifting */

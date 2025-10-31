@@ -48,33 +48,27 @@ h3 {
     padding-bottom: 5px;
 }
 
-p {
+p, ul, ol {
     font-size: 1rem;
     line-height: 1.5;
     font-family: Arial, sans-serif;
     margin: 0px;
+    color: white;
     padding-bottom: 10px;
 }
 
-p a, a {
-    color: #44baff; /* color for links */
-    text-decoration: none; /* Remove underline from links */
-    font-size: 1em;
-    line-height: 1;
-    font-family: Arial, sans-serif;
+p, b, strong, a {
+    word-wrap: break-word;
 }
 
-/* Optional: Add hover effect for links */
-p a:hover, li a:hover {
-    text-decoration: underline; /* Underline links on hover */
-    font-size: 1em;
-    line-height: 1;
-    font-family: Arial, sans-serif;
-}
-
-li a {
+a {
     color: #44baff;
     text-decoration: none;
+    line-height: 1;
+}
+
+a:hover {
+    text-decoration: underline;
     font-size: 1em;
     line-height: 1;
     font-family: Arial, sans-serif;
@@ -86,26 +80,13 @@ li {
     font-family: inherit;
 }
 
-/* Unordered and ordered lists */
-ul, ol {
-    font-size: 1rem; /* 1rem equals the base font size */
-    line-height: 1.5;
-    font-family: Arial, sans-serif;
-    color: white;
-    margin: 0px;
-    padding-bottom: 10px;
-}
-
-/* Nested lists */
 ul ul, ul ol, ol ul, ol ol {
-    font-size: inherit; /* Ensures nested lists have the same font size */
+    font-size: inherit;
     line-height: inherit;
     font-family: inherit;
     color: inherit;
     font-weight: normal;
-    margin-left: 20px; /* Adjusts indentation for nested lists */
 }
-
 
 
 
@@ -122,7 +103,7 @@ img.center {
     margin-right: auto;
 }
 
-p code, li code {
+code {
     background-color: #1e1e1e;
     color: #cfcfcf;
     font-family: monospace;
