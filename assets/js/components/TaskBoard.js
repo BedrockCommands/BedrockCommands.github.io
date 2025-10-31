@@ -480,16 +480,25 @@ const TaskBoard = {
     }
 
     async function fetchTaskboards() {
-    try {
-      const res = await fetch('/api/taskboards')
-      if (!res.ok) throw new Error('Failed to load')
-      const data = await res.json()
-      taskboards.value = data
-    } catch (err) {
-      console.error('Failed to load taskboards', err)
-      taskboards.value = []
+     try {
+        const res = await fetch('/api/taskboards')
+        if (!res.ok) throw new Error('Failed to load')
+        const data = await res.json()
+        taskboards.value = data
+      } catch (err) {
+        console.error('Failed to load taskboards', err)
+        taskboards.value = []
+      } finally {
+        nextTick(() => {
+          document
+            .querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input')
+            .forEach(el => {
+              el.style.height = 'auto'
+              el.style.height = el.scrollHeight + 'px'
+            })
+        })
+      }
     }
-  }
 
   async function saveTaskboards() {
     if (!canEdit.value) return
@@ -643,6 +652,19 @@ const TaskBoard = {
 
       return userMatch && statusMatch
     }
+
+    watch(canEdit, (newVal) => {
+      if (newVal) {
+        nextTick(() => {
+          document
+            .querySelectorAll('.tb-desc-input, .tb-bin-desc-input, .tb-title-input, .tb-bin-title-input, .tb-tasks-input')
+            .forEach(el => {
+              el.style.height = 'auto'
+              el.style.height = el.scrollHeight + 'px'
+            })
+        })
+      }
+    })
 
     return {
       loading,
