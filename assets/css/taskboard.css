@@ -289,8 +289,8 @@
       color: #ffffff;
       width: 100%;
       height: fit-content;
-      resize: none; /* Prevent manual resize */
-      overflow: hidden; /* Hide scrollbars */
+      resize: none;
+      overflow: hidden;
       transition: height 0.1s ease-in-out;
       box-sizing: border-box;
   }
