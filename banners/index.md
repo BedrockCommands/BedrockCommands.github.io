@@ -47,8 +47,10 @@ description: >-
       <li><label><input type="checkbox" value="@chg_arctic_wolf"> @chg_arctic_wolf</label></li>
       <li><label><input type="checkbox" value="@codegeek01"> @codegeek01</label></li>
       <li><label><input type="checkbox" value="@crunchycookie"> @crunchycookie</label></li>
+      <li><label><input type="checkbox" value="@crepaspmkinpie"> @crepaspmkinpie</label></li>
       <li><label><input type="checkbox" value="@fantasy9967"> @fantasy9967</label></li>
       <li><label><input type="checkbox" value="@fatalconfuzion"> @fatalconfuzion</label></li>
+      <li><label><input type="checkbox" value="@itzbeasty"> @itzbeasty</label></li>
       <li><label><input type="checkbox" value="@jeanmajid"> @jeanmajid</label></li>
       <li><label><input type="checkbox" value="@jstash"> @jstash</label></li>
       <li><label><input type="checkbox" value="@levy_mcgarden307"> @levy_mcgarden307</label></li>
@@ -66,7 +68,28 @@ description: >-
 </div>
 
 <div class="gallery">
-<div class="banner" data-year="2025" data-month="October" data-author="@crunchiecookie">
+<div class="banner" data-year="2025" data-month="December" data-authors="@itzbeasty, @crepaspmkinpie">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2025</span>
+      <span class="tag">December</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2025.Dec.png" alt="Server Banner 2025 December">
+  </div>
+</div>
+
+
+<div class="banner" data-year="2025" data-month="November" data-author="@maxed_out10">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2025</span>
+      <span class="tag">November</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2025.Nov.png" alt="Server Banner 2025 November">
+  </div>
+</div>
+
+<div class="banner" data-year="2025" data-month="October" data-author="@crunchycookie">
   <div class="banner-wrapper">
     <div class="tags">
       <span class="tag">2025</span>
@@ -74,7 +97,7 @@ description: >-
     </div>
     <img src="/assets/images/banners/Server_Banner_2025.Oct.png" alt="Server Banner 2025 October">
   </div>
-</div>  
+</div>
 
 <div class="banner" data-year="2025" data-month="September" data-author="@itzbeasty">
   <div class="banner-wrapper">

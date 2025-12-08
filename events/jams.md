@@ -43,6 +43,33 @@ description: >-
 </script>
 
 <div class="gallery">
+<div class="banner" data-year="2025" data-jam="Halloween Jam">
+        <div class="banner-inner">
+            <div class="banner-front">
+                <div class="tags">
+                    <span class="tag">2025</span>
+                    <span class="tag">October</span>
+                    <span class="tag">Halloween Jam</span>
+                </div>
+                <img src="/assets/images/banners/Jam_Banner_2025.Oct.webp" alt="Jam Banner 2025 October">
+                <div class="rank-tags">
+                    <span class="tag first-place">1st: @crunchycookie</span>
+                    <span class="tag second-place">2nd: ---</span>
+                    <span class="tag third-place">3rd: ---</span>
+                </div>
+            </div>
+            <div class="banner-back">
+                <p><strong>🔫 Theme: Posession</strong></p>
+                <p>Any creation that clearly depicts posession or control over another entity, player, blocks, or all.</p>
+                <p><strong>⭐ Participants:</strong></p>
+                <p class="participants">
+                1. 💎200 @crunchycookie<br>
+                2. 💎000 --<br>
+                3. 💎000 --<br>
+                </p>
+            </div>
+        </div>
+    </div>
 <div class="banner" data-year="2025" data-jam="Command Jam">
         <div class="banner-inner">
             <div class="banner-front">
