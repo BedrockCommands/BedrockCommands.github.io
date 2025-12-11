@@ -17,7 +17,7 @@ description: >-
                 <div class="tags">
                     <span class="tag">2025</span>
                 </div>
-                <img class="banner-image" src="/assets/images/projects/2025.Thumbnail.png">
+                <img class="banner-image" src="/assets/images/projects/2025.Thumbnail.webp">
                 <div class="card">
                     <h3 class="card-button-title">See Details</h3>
                     <a href="/projects/cook-off" class="stretched-link"></a>
