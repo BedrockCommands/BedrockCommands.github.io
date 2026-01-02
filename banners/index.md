@@ -11,6 +11,7 @@ description: >-
     <button class="dropdown-btn">Select Year</button>
     <ul class="dropdown-menu">
       <li><label><input type="checkbox" value="" checked> All Years</label></li>
+      <li><label><input type="checkbox" value="2026"> 2026</label></li>
       <li><label><input type="checkbox" value="2025"> 2025</label></li>
       <li><label><input type="checkbox" value="2024"> 2024</label></li>
       <li><label><input type="checkbox" value="2023"> 2023</label></li>
@@ -56,6 +57,7 @@ description: >-
       <li><label><input type="checkbox" value="@levy_mcgarden307"> @levy_mcgarden307</label></li>
       <li><label><input type="checkbox" value="@majimellow"> @majimellow</label></li>
       <li><label><input type="checkbox" value="@maxed_out10"> @maxed_out10</label></li>
+      <li><label><input type="checkbox" value="@mrcrepeer60000"> @mrcrepeer60000</label></li>
       <li><label><input type="checkbox" value="@qh0l"> @qh0l</label></li>
       <li><label><input type="checkbox" value="@redakarimi"> @redakarimi</label></li>
       <li><label><input type="checkbox" value="@robot_01"> @robot_01</label></li>
@@ -68,6 +70,17 @@ description: >-
 </div>
 
 <div class="gallery">
+
+<div class="banner" data-year="2026" data-month="January" data-author="@mrcrepeer60000">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2026</span>
+      <span class="tag">January</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2026.Jan.png" alt="Server Banner 2026 January">
+  </div>
+</div>
+
 <div class="banner" data-year="2025" data-month="December" data-authors="@itzbeasty, @crepaspmkinpie">
   <div class="banner-wrapper">
     <div class="tags">
