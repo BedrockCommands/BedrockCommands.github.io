@@ -303,7 +303,7 @@ const TaskBoard = {
     // Authorized to Manage Tasks: califerr, jeanmajid, spacebarninja, zheaevyline, zruby
     const allowedGithubIDs = [84600834, 124172979, 142201872, 99989764, 96641071]
     // Team Members who can be assigned tasks
-    const knownUsernames = ref(["ax_titan", "bellarmina", "bm6", "blitzbolts", "brodblox09", "califerr", "catfederation", "ccjjkk95", "cornyflex", "crepaspmkinpie", "crunchycookie", "dinosscar", "finnthedemoncat", "frozty000", "felixchats", "faramir1616", "hi_rynnn", "itzbeasty", "jeanmajid", "kuba12ki6", "kittenb0y", "levy_mcgarden307", "lustfulleche", "nayvid", "poolroxjosh", "r_kidds", "siwudot", "sheep_shiloh", "spacebarninja", "thejonathanlongly", "theemonster395", "vactricaking", "veyscold", "your_friend6254", "zheaevyline", "zruby"])
+    const knownUsernames = ref(["ax_titan", "bellarmina", "bm6", "blitzbolts", "brodblox09", "califerr", "catfederation", "ccjjkk95", "cornyflex", "crepaspmkinpie", "crunchycookie", "dinosscar", "finnthedemoncat", "frozty000", "felixchats", "faramir1616", "hi_rynnn", "itzbeasty", "jeanmajid", "kuba12ki6", "kittenb0y", "levy_mcgarden307", "lustfulleche", "mittens4all", "nayvid", "poolroxjosh", "r_kidds", "siwudot", "sheep_shiloh", "spacebarninja", "thejonathanlongly", "theemonster395", "vactricaking", "veyscold", "your_friend6254", "zheaevyline", "zruby"])
     // Usernames with dot
     const usernameDisplayMap = { zruby: ".zruby", bm6: "bm6." }
     const activePopupTask = ref(null)
