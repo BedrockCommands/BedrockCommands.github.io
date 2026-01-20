@@ -184,7 +184,7 @@
             const bannerMonth = banner.dataset.month;
             const bannerAuthors = banner.dataset.authors
                 ? banner.dataset.authors.split(", ")
-                : banner.dataset.author
+                :   banner.dataset.author
                     ? [banner.dataset.author]
                     : [];
             const bannerJam = banner.dataset.jam || "";
@@ -219,51 +219,69 @@
         setupDropdown("jam-dropdown");
         setupDropdown("map-dropdown");
       });
-
-      document.addEventListener("DOMContentLoaded", function() {
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
     const tocContainer = document.getElementById("toc-container");
     const tocList = document.getElementById("toc-list");
-    
+    const tocToggle = document.getElementById("toc-toggle");
+
     if (!tocContainer || !tocList) return;
 
-    const headers = [...document.querySelectorAll("main h2:not(#toc-title), main h3, main h4, main h5, main h6")]
-        .filter(header => !header.closest("button, .card, .no-toc"));
+    // Find headers for TOC
+    const headers = [...document.querySelectorAll(
+        "main h2:not(#toc-title), main h3, main h4, main h5, main h6"
+    )].filter(header => !header.closest("button, .card, .no-toc"));
 
     if (headers.length > 0) {
-    tocContainer.classList.add("visible");
-    document.body.classList.add("toc-active");
+        tocContainer.classList.add("visible");
+        document.body.classList.add("toc-active");
+    } else {
+        // Hide TOC completely on pages with no headers
+        tocContainer.style.display = "none";
+        return; // no need to build TOC
     }
 
+    // Build TOC list
     headers.forEach((header, index) => {
-    const text = header.innerText.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g, '').trim();
-    const id = header.id || `toc-header-${index}`;
-    header.id = id;
+        const text = header.innerText.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g, '').trim();
+        const id = header.id || `toc-header-${index}`;
+        header.id = id;
 
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.href = `#${id}`;
-    a.textContent = text;
-
-    a.classList.add(`toc-${header.tagName.toLowerCase()}`);
-
-    li.appendChild(a);
-    tocList.appendChild(li);
-});
-
-});
-    </script>
-    <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const toc = document.getElementById("toc-container");
-    const toggle = document.getElementById("toc-toggle");
-
-    if (!toc || !toggle) return;
-
-    toggle.addEventListener("click", () => {
-        const isOpen = toc.classList.toggle("open");
-        toggle.setAttribute("aria-expanded", isOpen);
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = `#${id}`;
+        a.textContent = text;
+        a.classList.add(`toc-${header.tagName.toLowerCase()}`);
+        li.appendChild(a);
+        tocList.appendChild(li);
     });
+
+    // Mobile toggle
+    if (tocToggle) {
+        tocToggle.addEventListener("click", () => {
+            const isOpen = tocContainer.classList.toggle("open");
+            tocToggle.setAttribute("aria-expanded", isOpen);
+
+            if (isOpen) {
+                const listHeight = tocList.scrollHeight;
+                const toggleHeight = tocToggle.offsetHeight;
+                tocContainer.style.maxHeight = toggleHeight + listHeight + "px";
+            } else {
+                tocContainer.style.maxHeight = tocToggle.offsetHeight + "px";
+            }
+        });
+
+        // Recalc on resize
+        window.addEventListener("resize", () => {
+            if (tocContainer.classList.contains("open")) {
+                const listHeight = tocList.scrollHeight;
+                const toggleHeight = tocToggle.offsetHeight;
+                tocContainer.style.maxHeight = toggleHeight + listHeight + "px";
+            }
+        });
+    }
 });
-</script>  
+</script>
 </body>
 </html>
