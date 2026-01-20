@@ -1,0 +1,150 @@
+#toc-container {
+    position: fixed;
+    top: 94px;
+    right: -10px;
+    width: 220px;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #111111;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ffffff30;
+    font-family: 'Minecraft Ten', Arial;
+    color: white;
+    z-index: 10;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    display: none;
+}
+
+#toc-container.visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    display: block;
+}
+
+
+/* TOC heading */
+#toc-container h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    padding: 0px;
+}
+
+/* List styling */
+#toc-list {
+    list-style: none;
+    padding-left: 0px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+#toc-list li {
+    line-height: 1.5;
+    margin-bottom: 6px;
+}
+
+#toc-list li a {
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+#toc-list li a:hover {
+    color: #44baff;
+}
+
+#toc-list li a.toc-h3 { padding-left: 15px; }
+#toc-list li a.toc-h4 { padding-left: 30px; }
+#toc-list li a.toc-h5 { padding-left: 45px; }
+#toc-list li a.toc-h6 { padding-left: 60px; }
+
+/* Shift main content when TOC is visible */
+body.toc-active main {
+    margin-right: 250px; /* same as TOC width + padding if needed */
+    transition: margin-right 0.3s ease-in-out;
+}
+
+#toc-title {
+    display: block;
+}
+
+#toc-toggle {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    #toc-container {
+        order: -1;
+        height: auto;
+        width: 100%;
+        position: static;
+        padding: 0;
+        z-index: 1;
+        margin-top: 30px;
+    }
+
+    /* Hide desktop title */
+    #toc-title {
+        display: none;
+    }
+
+    /* Show toggle button */
+    #toc-toggle {
+        width: 100%;
+        background: #111;
+        color: white;
+        border: 1px solid #ffffff30;
+        padding: 10px 12px;
+        font-size: 1rem;
+        font-family: 'Minecraft Ten', Arial;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    /* Arrow */
+    #toc-toggle .toc-arrow {
+        transition: transform 0.25s ease;
+    }
+
+    #toc-container.open #toc-toggle .toc-arrow {
+        transform: rotate(180deg);
+    }
+
+    /* Collapsed */
+    #toc-list {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        background: #111;
+        border: 1px solid #ffffff30;
+        border-top: none;
+        padding: 0 12px;
+    }
+
+    /* Expanded */
+    #toc-container.open #toc-list {
+        max-height: 70vh;
+        padding: 10px 12px;
+    }
+
+    /* Reset desktop spacing */
+    body.toc-active main {
+        margin-right: 0;
+    }
+}
+
+/* Desktop: hide dropdown toggle */
+@media (min-width: 1025px) {
+    #toc-toggle {
+        display: none;
+    }
+}

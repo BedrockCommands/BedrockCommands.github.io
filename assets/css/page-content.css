@@ -28,6 +28,8 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Minecraft Ten', sans-serif;
     font-weight: normal;
     margin: 0;
+    scroll-margin-top: 85px;
+    line-height: 1.5;
 }
 
 h1 {
@@ -88,11 +90,6 @@ ul ul, ul ol, ol ul, ol ol {
     font-weight: normal;
 }
 
-
-
-
-
-
 img.rounded-corners {
     border-radius: 20px;
 }
@@ -101,6 +98,11 @@ img.center {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+img.pixel-art {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
 }
 
 code {

@@ -255,6 +255,7 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 70%;
+    line-height: 1.5;
 }
 
 .banner-game-author {

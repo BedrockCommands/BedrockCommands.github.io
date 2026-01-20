@@ -30,6 +30,7 @@ description: >-
         <div class="banner-inner">
             <div class="banner-front">
                 <span class="banner-game-title">Secret Project.. 👀</span>
+                <span class="banner-game-author">Directed by.. </span>
                 <div class="tags">
                     <span class="tag">2026</span>
                 </div>

@@ -29,36 +29,19 @@ footer {
     margin-top: 10px;
 }
 
-.social-icons a {
+.social-icons a, .social-icons a:hover {
     text-decoration: none;
     color: white;
     font-size: 34px;
     margin: 0 10px;
     transition: color 0.3s ease;
     padding-bottom: 10px;
+    display: inline-block;
+    line-height: 1;
+    font-family: "Font Awesome 5 Brands" !important;
+    font-weight: 400 !important;
 }
 
 .social-icons a:hover {
-    color: #cdecff; /* Change to desired hover color */
-}
-
-.fa {
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900; /* Necessary for solid icons */
-}
-.fa-brands {
-    font-family: 'Font Awesome 5 Brands';
-}
-
-/* Font Awesome Icons */
-.fa-youtube:before {
-    content: "\f167";
-}
-
-.fa-github:before {
-    content: "\f09b";
-}
-
-.fa-discord:before {
-    content: "\f392";
+    color: #cdecff;
 }

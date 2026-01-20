@@ -21,9 +21,17 @@
 
     {% include header.html %}
 
-    <main>
-        {{ content }}
-    </main>
+      <main>
+        <aside id="toc-container">
+        <h2 id="toc-title">Contents</h2>
+        <button id="toc-toggle" aria-expanded="false">
+          Contents
+          <span class="toc-arrow">▾</span>
+        </button>
+        <ul id="toc-list"></ul>
+      </aside>
+          {{ content }}
+      </main>
 
     {% include footer.html %}
 
@@ -101,7 +109,6 @@
           }
         });
 
-        // ✅ NEW: Keep sidebar closed by default on the tasks page
         const isTasksPage = currentPath.includes("/projects/cook-off/tasks/");
 
         if (!isTasksPage && window.innerWidth > 768) {
@@ -170,6 +177,7 @@
           const selectedMonths = getSelectedValues("#month-dropdown");
           const selectedAuthors = getSelectedValues("#author-dropdown");
           const selectedJams = getSelectedValues("#jam-dropdown");
+          const selectedMaps = getSelectedValues("#map-dropdown");
 
           document.querySelectorAll(".banner").forEach(banner => {
             const bannerYear = banner.dataset.year;
@@ -180,13 +188,15 @@
                     ? [banner.dataset.author]
                     : [];
             const bannerJam = banner.dataset.jam || "";
+            const bannerMap = banner.dataset.map || "";
 
             const matchesYear = selectedYears.length === 0 || selectedYears.includes(bannerYear);
             const matchesMonth = selectedMonths.length === 0 || selectedMonths.includes(bannerMonth);
             const matchesAuthor = selectedAuthors.length === 0 || selectedAuthors.some(author => bannerAuthors.includes(author));
             const matchesJam = selectedJams.length === 0 || selectedJams.includes(bannerJam);
+            const matchesMap = selectedMaps.length === 0 || selectedMaps.includes(bannerMap);
 
-            banner.style.display = matchesYear && matchesMonth && matchesAuthor && matchesJam ? "block" : "none";
+            banner.style.display = matchesYear && matchesMonth && matchesAuthor && matchesJam && matchesMap ? "block" : "none";
           });
         }
 
@@ -207,7 +217,53 @@
         setupDropdown("month-dropdown");
         setupDropdown("author-dropdown");
         setupDropdown("jam-dropdown");
+        setupDropdown("map-dropdown");
       });
-    </script>      
+
+      document.addEventListener("DOMContentLoaded", function() {
+    const tocContainer = document.getElementById("toc-container");
+    const tocList = document.getElementById("toc-list");
+    
+    if (!tocContainer || !tocList) return;
+
+    const headers = [...document.querySelectorAll("main h2:not(#toc-title), main h3, main h4, main h5, main h6")]
+        .filter(header => !header.closest("button, .card, .no-toc"));
+
+    if (headers.length > 0) {
+    tocContainer.classList.add("visible");
+    document.body.classList.add("toc-active");
+    }
+
+    headers.forEach((header, index) => {
+    const text = header.innerText.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g, '').trim();
+    const id = header.id || `toc-header-${index}`;
+    header.id = id;
+
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = `#${id}`;
+    a.textContent = text;
+
+    a.classList.add(`toc-${header.tagName.toLowerCase()}`);
+
+    li.appendChild(a);
+    tocList.appendChild(li);
+});
+
+});
+    </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const toc = document.getElementById("toc-container");
+    const toggle = document.getElementById("toc-toggle");
+
+    if (!toc || !toggle) return;
+
+    toggle.addEventListener("click", () => {
+        const isOpen = toc.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", isOpen);
+    });
+});
+</script>  
 </body>
 </html>
