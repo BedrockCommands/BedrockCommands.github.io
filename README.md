@@ -17,7 +17,7 @@ This repository contains the source code for the [Bedrock Commands Community Web
 
     ```bash
     bundle install
-    ```
+    ``` 
 
 3. Start the development server:
 
