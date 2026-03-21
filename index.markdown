@@ -37,7 +37,7 @@ Participate in regular events and challenges designed to test and expand your co
       <path d="M15 4h5v5" />
     </svg>
     </div>
-    <a href="https://discord.gg/invite/bedrock-commands-community-924894457894174740" 
+    <a href="https://discord.gg/RHU3rjp9He" 
     class="stretched-link" 
     target="_blank" 
     rel="noopener noreferrer">
@@ -60,7 +60,7 @@ Participate in regular events and challenges designed to test and expand your co
 
 <script>
   function copyToClipboard() {
-    const link = "https://discord.gg/invite/bedrock-commands-community-924894457894174740"; // Replace with your desired link
+    const link = "https://discord.gg/RHU3rjp9He"; // Replace with your desired link
     const textArea = document.createElement("textarea");
     textArea.value = link;
     document.body.appendChild(textArea);

@@ -56,7 +56,7 @@ Simple mechanics, escalating challenges, and a focus on fun, cooperative gamepla
 
 ## ✨️ Contributing
 
-To contribute and become a part of the 'Cook-Off!' project, please join the [Bedrock Commands Community Discord](https://discord.gg/SYstTYx5G5).
+To contribute and become a part of the 'Cook-Off!' project, please join the [Bedrock Commands Community Discord](https://discord.gg/RHU3rjp9He).
 
 <div class="button-container">
   <div class="card">
