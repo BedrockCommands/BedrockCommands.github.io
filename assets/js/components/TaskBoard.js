@@ -198,7 +198,7 @@ const TaskBoard = {
                   class="tb-tasks-container"
                   :disabled="!canEdit"
                   v-show="canEdit || bin.expanded"
-                  @end="() => nextTick(saveTaskboards)"
+                  @end="(evt) => handleTaskDragEnd(tbIndex, binIndex, evt)"
                   :delay="canEdit ? 200 : 0"
                   :delay-on-touch-only="true"
                 >
@@ -338,7 +338,7 @@ const TaskBoard = {
 
     function createGhostTaskboard() {
       taskboards.value.unshift({
-        id: Date.now() + Math.random(), // unique stable key
+        id: Date.now() + Math.random(),
         title: '',
         description: '',
         image: '',
@@ -358,7 +358,6 @@ const TaskBoard = {
       saveTaskboards()
     }
 
-    // When creating bins/tasks, add a unique id
     function createGhostBin(tbIndex) {
     taskboards.value[tbIndex].bins.push({ id: Date.now(), title: '', description: '', labels: [], tasks: [], expanded: true, _isGhost: true })
     nextTick(autoResizeAll)
@@ -376,7 +375,7 @@ const TaskBoard = {
 
     function createGhostTask(tbIndex, binIndex) {
     taskboards.value[tbIndex].bins[binIndex].tasks.push({
-      id: Date.now() + Math.random(), // unique
+      id: Date.now() + Math.random(),
       text: '',
       checked: false,
       users: [],
@@ -385,14 +384,15 @@ const TaskBoard = {
     }
 
     function finalizeTask(tbIndex, binIndex, taskIndex) {
-      const task = taskboards.value[tbIndex].bins[binIndex].tasks[taskIndex]
-      if (!task.text) {
-        taskboards.value[tbIndex].bins[binIndex].tasks.splice(taskIndex, 1)
-      } else {
-        delete task._isGhost
-      }
-      saveTaskboards()
-    }
+  const task = taskboards.value[tbIndex].bins[binIndex].tasks[taskIndex];
+  if (!task.text) {
+    taskboards.value[tbIndex].bins[binIndex].tasks.splice(taskIndex, 1);
+  } else {
+    delete task._isGhost;
+    sortTasksAlphabetically(tbIndex, binIndex);
+  }
+  saveTaskboards();
+}
 
     function toggleTask(tbIndex, binIndex, taskIndex) {
       const task = taskboards.value[tbIndex].bins[binIndex].tasks[taskIndex]
@@ -479,20 +479,37 @@ const TaskBoard = {
     }
 
     async function fetchTaskboards() {
-     try {
-        const res = await fetch('/api/taskboards')
-        if (!res.ok) throw new Error('Failed to load')
-        const data = await res.json()
-        taskboards.value = data
-      } catch (err) {
-        console.error('Failed to load taskboards', err)
-        taskboards.value = []
-      } finally {
-        nextTick(() => {
-          autoResizeAll()
-        })
-      }
-    }
+  try {
+    const res = await fetch('/api/taskboards')
+    if (!res.ok) throw new Error('Failed to load')
+    const data = await res.json() 
+    data.forEach(tb => {
+      tb.bins.forEach(bin => {
+        if (Array.isArray(bin.tasks)) {
+          bin.tasks.sort((a, b) => (a.text || '').toLowerCase().trim().localeCompare((b.text || '').toLowerCase().trim()));
+        }
+      });
+    });
+    taskboards.value = data
+  } catch (err) {
+    console.error('Failed to load taskboards', err)
+    taskboards.value = []
+  } finally {
+    nextTick(() => {
+      autoResizeAll()
+    })
+  }
+}
+
+  function handleTaskDragEnd(tbIndex, binIndex, event) {
+  sortTasksAlphabetically(tbIndex, binIndex);
+  if (event.from !== event.to) {
+    taskboards.value[tbIndex].bins.forEach((_, idx) => {
+      sortTasksAlphabetically(tbIndex, idx);
+    });
+  }
+  nextTick(saveTaskboards);
+}
 
   async function saveTaskboards() {
     if (!canEdit.value) return
@@ -617,6 +634,17 @@ const TaskBoard = {
       })
     }
 
+    function sortTasksAlphabetically(tbIndex, binIndex) {
+  const bin = taskboards.value[tbIndex]?.bins[binIndex];
+  if (!bin || !bin.tasks) return;
+
+  bin.tasks.sort((a, b) => {
+    const textA = (a.text || '').toLowerCase().trim();
+    const textB = (b.text || '').toLowerCase().trim();
+    return textA.localeCompare(textB);
+  });
+}
+
     function ensureFilterState(tbIndex, binIndex) {
       const bin = taskboards.value[tbIndex].bins[binIndex]
       if (!bin.tasks.length) return null
@@ -704,7 +732,8 @@ const TaskBoard = {
       filteredTasks,
       ensureFilterState,
       toggleFilter,
-      shouldShowTask
+      shouldShowTask,
+      handleTaskDragEnd
     }
   }
 }
