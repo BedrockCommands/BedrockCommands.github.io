@@ -60,7 +60,7 @@ This game features six unique maps. You'll begin at the **Starting Restaurant** 
 **Requirements:** None. This map is accessible to all new players.<br>
 **Challenge:** None
 
-<img src="/assets/images/projects/2025/maps/map_1.webp" class="rounded-corners responsive">
+<img src="/assets/images/projects/2025/maps/map_1.webp" width="100%" class="rounded-corners">
 
 ### Map 2 - Belle Epoque
 
@@ -68,7 +68,7 @@ This game features six unique maps. You'll begin at the **Starting Restaurant** 
 **Requirements:** Complete all levels in map 1.<br>
 **Challenge:** Conveyor Belts
 
-<img src="/assets/images/projects/2025/maps/map_2.webp" class="rounded-corners responsive">
+<img src="/assets/images/projects/2025/maps/map_2.webp" width="100%" class="rounded-corners">
 
 ### Map 3 - Yamashiro
 
@@ -76,7 +76,7 @@ This game features six unique maps. You'll begin at the **Starting Restaurant** 
 **Requirements:** Complete all levels in map 2.<br>
 **Challenge:** Bamboo Blockade
 
-<img src="/assets/images/projects/2025/maps/map_3.webp" class="rounded-corners responsive">
+<img src="/assets/images/projects/2025/maps/map_3.webp" width="100%" class="rounded-corners">
 
 ### Map 4 - Kamayan
 
@@ -84,7 +84,7 @@ This game features six unique maps. You'll begin at the **Starting Restaurant** 
 **Requirements:** Complete all levels in map 3.<br>
 **Challenge:** Flood
 
-<img src="/assets/images/projects/2025/maps/map_4.webp" class="rounded-corners responsive">
+<img src="/assets/images/projects/2025/maps/map_4.webp" width="100%" class="rounded-corners">
 
 ### Map 5 - Cantina Americana
 
@@ -92,7 +92,7 @@ This game features six unique maps. You'll begin at the **Starting Restaurant** 
 **Requirements:** Complete all levels in map 4.<br>
 **Challenge:** Fireworks
 
-<img src="/assets/images/projects/2025/maps/map_5.webp" class="rounded-corners responsive">
+<img src="/assets/images/projects/2025/maps/map_5.webp" width="100%" class="rounded-corners">
 
 ### Map 6 - The Oven
 
@@ -100,7 +100,7 @@ This game features six unique maps. You'll begin at the **Starting Restaurant** 
 **Requirements:** Complete all levels in Map 5.<br>
 **Challenge:** None
 
-<img src="/assets/images/projects/2025/maps/map_6.webp" class="rounded-corners responsive">
+<img src="/assets/images/projects/2025/maps/map_6.webp" width="100%" class="rounded-corners">
 
 ## Features
 
