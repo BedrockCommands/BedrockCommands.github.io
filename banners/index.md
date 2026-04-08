@@ -58,11 +58,13 @@ description: >-
       <li><label><input type="checkbox" value="@majimellow"> @majimellow</label></li>
       <li><label><input type="checkbox" value="@maxed_out10"> @maxed_out10</label></li>
       <li><label><input type="checkbox" value="@mrcrepeer60000"> @mrcrepeer60000</label></li>
+      <li><label><input type="checkbox" value="@madmax4tacos"> @madmax4tacos</label></li>
       <li><label><input type="checkbox" value="@qh0l"> @qh0l</label></li>
       <li><label><input type="checkbox" value="@redakarimi"> @redakarimi</label></li>
       <li><label><input type="checkbox" value="@robot_01"> @robot_01</label></li>
       <li><label><input type="checkbox" value="@solarflurry"> @solarflurry</label></li>
       <li><label><input type="checkbox" value="@snoozy6322"> @snoozy6322</label></li>
+      <li><label><input type="checkbox" value="@siwudot"> @siwudot</label></li>
       <li><label><input type="checkbox" value="@vitreace"> @vitreace</label></li>
       <li><label><input type="checkbox" value="@vulchaestus"> @vulchaestus</label></li>
     </ul>
@@ -70,6 +72,26 @@ description: >-
 </div>
 
 <div class="gallery">
+
+<div class="banner" data-year="2026" data-month="April" data-author="@madmax4tacos">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2026</span>
+      <span class="tag">April</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2026.Apr.png" alt="Server Banner 2026 April">
+  </div>
+</div>
+
+<div class="banner" data-year="2026" data-month="March" data-author="@siwudot">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2026</span>
+      <span class="tag">March</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2026.Mar.png" alt="Server Banner 2026 March">
+  </div>
+</div>
 
 <div class="banner" data-year="2026" data-month="January" data-author="@mrcrepeer60000">
   <div class="banner-wrapper">

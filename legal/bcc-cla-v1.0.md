@@ -58,10 +58,10 @@ NOW, THEREFORE, the parties agree as follows:
         - (ii) Absent any objection within this period, the successor is deemed accepted by all Contributors.
 
 - **1.6 “Authorized Staff”**
-    - Any BCC project director, coordinator, department lead, or moderator appointed by the Project Licensing Representative to act on their behalf under this Agreement, as expressly designated through verifiable Discord role assignments in the Bedrock Commands Community Discord (Server ID: `924894457894174740`).
+    - Any BCC project director, coordinator, department lead, or moderator appointed by the Project Licensing Representative to act on their behalf under this Agreement, as expressly designated through verifiable Discord role assignments in the Bedrock Commands Community Discord (Server ID: `1480315514709348424`).
 
 - **1.7 “Bedrock Commands Community” or “BCC”**
-    - Refers to the informal online community hosted on Discord, at the server with ID `924894457894174740`, which collaboratively organizes and contributes to the Project via the GitHub organization `@BedrockCommands`. The term is used solely for purposes of attribution and community identity. It does not represent a legal entity and holds no ownership, enforcement rights, or responsibilities under this Agreement or the [BCC Public License (BCC-PL)](https://bedrockcommands.org/legal/bcc-pl-v1.0).
+    - Refers to the informal online community hosted on Discord, at the server with ID `1480315514709348424`, which collaboratively organizes and contributes to the Project via the GitHub organization `@BedrockCommands`. The term is used solely for purposes of attribution and community identity. It does not represent a legal entity and holds no ownership, enforcement rights, or responsibilities under this Agreement or the [BCC Public License (BCC-PL)](https://bedrockcommands.org/legal/bcc-pl-v1.0).
 
 - **1.8 “Project”**
     - (a) Refers to any designated GitHub repository under the `@BedrockCommands` organization that has been explicitly included in the Bedrock Commands Community’s Annual Map Making Program, as indicated in the repository README or description by the Project Licensing Representative or Authorized Staff.  
