@@ -105,6 +105,12 @@ img.pixel-art {
     image-rendering: crisp-edges;
 }
 
+img.responsive {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+}
+
 code {
     background-color: #1e1e1e;
     color: #cfcfcf;
