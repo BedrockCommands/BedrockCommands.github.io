@@ -60,6 +60,7 @@ description: >-
 <li><label><input type="checkbox" value="@marmalade_toast"> @marmalade_toast</label></li>
 <li><label><input type="checkbox" value="@maxedout4826"> @maxedout4826</label></li>
 <li><label><input type="checkbox" value="@mittens4all"> @mittens4all</label></li>
+<li><label><input type="checkbox" value="@mittens4all"> @nakohikari</label></li>
 <li><label><input type="checkbox" value="@.onerat"> @.onerat</label></li>
 <li><label><input type="checkbox" value="@orangecash_"> @orangecash_</label></li>
 <li><label><input type="checkbox" value="@parallelic"> @parallelic</label></li>
@@ -81,6 +82,23 @@ description: >-
 
 
 <div class="gallery">
+
+
+<div class="banner" data-year="2026" data-month="April" data-authors="@nakohikari">
+  <span class="banner-game-title">Magic Spell</span>
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2026</span>
+      <span class="tag">April</span>
+      <span class="tag">@nakohikari</span>
+    </div>
+    <div class="video-container"
+         data-src="/assets/videos/top_creations/2026/bcc.top_creation.2026.apr.mp4"
+         data-poster="/assets/videos/top_creations/2026/bcc.top_creation.2026.apr.preview.jpg">
+      <img src="/assets/videos/top_creations/2026/bcc.top_creation.2026.apr.preview.jpg" class="video-thumbnail">
+    </div>
+  </div>
+</div>
 
   <div class="banner" data-year="2026" data-month="March" data-authors="@.onerat">
   <span class="banner-game-title">1 Command Backrooms</span>

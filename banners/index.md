@@ -49,6 +49,7 @@ description: >-
       <li><label><input type="checkbox" value="@codegeek01"> @codegeek01</label></li>
       <li><label><input type="checkbox" value="@crunchycookie"> @crunchycookie</label></li>
       <li><label><input type="checkbox" value="@crepaspmkinpie"> @crepaspmkinpie</label></li>
+      <li><label><input type="checkbox" value="@dairychutoy35"> @dairychutoy35</label></li>
       <li><label><input type="checkbox" value="@fantasy9967"> @fantasy9967</label></li>
       <li><label><input type="checkbox" value="@fatalconfuzion"> @fatalconfuzion</label></li>
       <li><label><input type="checkbox" value="@itzbeasty"> @itzbeasty</label></li>
@@ -72,6 +73,16 @@ description: >-
 </div>
 
 <div class="gallery">
+
+<div class="banner" data-year="2026" data-month="May" data-author="@dairychutoy35">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2026</span>
+      <span class="tag">May</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2026.May.png" alt="Server Banner 2026 May">
+  </div>
+</div>
 
 <div class="banner" data-year="2026" data-month="April" data-author="@madmax4tacos">
   <div class="banner-wrapper">
