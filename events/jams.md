@@ -43,6 +43,39 @@ description: >-
 </script>
 
 <div class="gallery">
+
+<div class="banner" data-year="2026" data-jam="Command Jam">
+        <div class="banner-inner">
+            <div class="banner-front">
+                <div class="tags">
+                    <span class="tag">2026</span>
+                    <span class="tag">April</span>
+                    <span class="tag">Command Jam</span>
+                </div>
+                <img src="/assets/images/banners/Jam_Banner_2026.Apr.webp">
+                <div class="rank-tags">
+                    <span class="tag first-place">1st: @acelegendtv2 & @.onerat</span>
+                    <span class="tag second-place">2nd: @.zruby</span>
+                    <span class="tag third-place">3rd: @corruptick_</span>
+                </div>
+            </div>
+            <div class="banner-back">
+                <p><strong>🎯 Theme: Mini-Game</strong></p>
+                <p>Any mini-game that is multiplayer friendly.</p>
+                <p><strong>⭐ Participants:</strong></p>
+                <p class="participants">
+                1. 💎700 @acelegendtv2 & @.onerat<br>
+                2. 💎560 @.zruby<br>
+                3. 💎420 @corruptick_<br>
+                4. 💎280 @zlizard & @arsonistkun<br>
+                5. 💎140 @oyakodon_yuugen<br>
+                6. 💎100 @crepaspmkinpie<br>
+                7. 💎100 @_i6351_ & masterdragon863<br>
+                </p>
+            </div>
+        </div>
+    </div>
+
 <div class="banner" data-year="2025" data-jam="Halloween Jam">
         <div class="banner-inner">
             <div class="banner-front">

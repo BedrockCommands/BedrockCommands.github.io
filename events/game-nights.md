@@ -38,6 +38,26 @@ description: >-
 
 <div class="gallery">
 
+<div class="banner" data-year="2026">
+        <div class="banner-inner">
+            <div class="banner-front">
+            <img class="banner-logo" src="/assets/images/banners/GameNight_8.Logo.webp">
+                <span class="banner-game-title">LCE Battle Remake</span>
+                <span class="banner-game-author">By @zheaevyline & Team</span>
+                <div class="tags">
+                    <span class="tag">2026</span>
+                    <span class="tag">May</span>
+                </div>
+                <img class="banner-image" 
+     src="/assets/images/banners/GameNight_8.Screenie.png" 
+     data-alt-src="/assets/images/banners/GameNight_8.Thumbnail.png">
+                <div class="card">
+                    <h3 class="card-button-title">Coming Soon</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <div class="banner" data-year="2025">
         <div class="banner-inner">
             <div class="banner-front">
