@@ -74,6 +74,16 @@ description: >-
 
 <div class="gallery">
 
+<div class="banner" data-year="2026" data-month="June" data-author="@maxed_out10">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2026</span>
+      <span class="tag">June</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2026.Jun.png">
+  </div>
+</div>
+
 <div class="banner" data-year="2026" data-month="May" data-author="@dairychutoy35">
   <div class="banner-wrapper">
     <div class="tags">

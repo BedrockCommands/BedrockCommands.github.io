@@ -59,6 +59,7 @@ description: >-
 <li><label><input type="checkbox" value="@majestik"> @majestik</label></li>
 <li><label><input type="checkbox" value="@marmalade_toast"> @marmalade_toast</label></li>
 <li><label><input type="checkbox" value="@maxedout4826"> @maxedout4826</label></li>
+<li><label><input type="checkbox" value="@minecpu"> @minecpu</label></li>
 <li><label><input type="checkbox" value="@mittens4all"> @mittens4all</label></li>
 <li><label><input type="checkbox" value="@mittens4all"> @nakohikari</label></li>
 <li><label><input type="checkbox" value="@.onerat"> @.onerat</label></li>
@@ -83,6 +84,22 @@ description: >-
 
 <div class="gallery">
 
+
+<div class="banner" data-year="2026" data-month="May" data-authors="@minecpu">
+  <span class="banner-game-title">Single Layer Perceptron</span>
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2026</span>
+      <span class="tag">May</span>
+      <span class="tag">@minecpu</span>
+    </div>
+    <div class="video-container"
+         data-src="/assets/videos/top_creations/2026/bcc.top_creation.2026.may.mp4"
+         data-poster="/assets/videos/top_creations/2026/bcc.top_creation.2026.may.preview.jpg">
+      <img src="/assets/videos/top_creations/2026/bcc.top_creation.2026.may.preview.jpg" class="video-thumbnail">
+    </div>
+  </div>
+</div>
 
 <div class="banner" data-year="2026" data-month="April" data-authors="@nakohikari">
   <span class="banner-game-title">Magic Spell</span>
