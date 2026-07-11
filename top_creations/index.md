@@ -61,7 +61,7 @@ description: >-
 <li><label><input type="checkbox" value="@maxedout4826"> @maxedout4826</label></li>
 <li><label><input type="checkbox" value="@minecpu"> @minecpu</label></li>
 <li><label><input type="checkbox" value="@mittens4all"> @mittens4all</label></li>
-<li><label><input type="checkbox" value="@mittens4all"> @nakohikari</label></li>
+<li><label><input type="checkbox" value="@nakohikari"> @nakohikari</label></li>
 <li><label><input type="checkbox" value="@.onerat"> @.onerat</label></li>
 <li><label><input type="checkbox" value="@orangecash_"> @orangecash_</label></li>
 <li><label><input type="checkbox" value="@parallelic"> @parallelic</label></li>
@@ -84,6 +84,21 @@ description: >-
 
 <div class="gallery">
 
+<div class="banner" data-year="2026" data-month="June" data-authors="@nakohikari">
+  <span class="banner-game-title">Warden Obliterator 9000</span>
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2026</span>
+      <span class="tag">June</span>
+      <span class="tag">@nakohikari</span>
+    </div>
+    <div class="video-container"
+         data-src="/assets/videos/top_creations/2026/bcc.top_creation.2026.jun.mp4"
+         data-poster="/assets/videos/top_creations/2026/bcc.top_creation.2026.jun.preview.jpg">
+      <img src="/assets/videos/top_creations/2026/bcc.top_creation.2026.jun.preview.jpg" class="video-thumbnail">
+    </div>
+  </div>
+</div>
 
 <div class="banner" data-year="2026" data-month="May" data-authors="@minecpu">
   <span class="banner-game-title">Single Layer Perceptron</span>

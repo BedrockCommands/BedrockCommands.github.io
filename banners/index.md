@@ -66,6 +66,7 @@ description: >-
       <li><label><input type="checkbox" value="@solarflurry"> @solarflurry</label></li>
       <li><label><input type="checkbox" value="@snoozy6322"> @snoozy6322</label></li>
       <li><label><input type="checkbox" value="@siwudot"> @siwudot</label></li>
+      <li><label><input type="checkbox" value="@spiderify27"> @spiderify27</label></li>
       <li><label><input type="checkbox" value="@vitreace"> @vitreace</label></li>
       <li><label><input type="checkbox" value="@vulchaestus"> @vulchaestus</label></li>
     </ul>
@@ -73,6 +74,16 @@ description: >-
 </div>
 
 <div class="gallery">
+
+<div class="banner" data-year="2026" data-month="July" data-author="@spiderify27">
+  <div class="banner-wrapper">
+    <div class="tags">
+      <span class="tag">2026</span>
+      <span class="tag">July</span>
+    </div>
+    <img src="/assets/images/banners/Server_Banner_2026.Jul.png">
+  </div>
+</div>
 
 <div class="banner" data-year="2026" data-month="June" data-author="@maxed_out10">
   <div class="banner-wrapper">

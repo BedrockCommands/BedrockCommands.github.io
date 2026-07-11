@@ -41,6 +41,56 @@ description: >-
 <div class="banner" data-year="2026">
         <div class="banner-inner">
             <div class="banner-front">
+            <img class="banner-logo" src="/assets/images/banners/GameNight_9.2.Logo.webp">
+                <span class="banner-game-title">Skyblock Randomizer</span>
+                <span class="banner-game-author">By @corruptick_</span>
+                <div class="tags">
+                    <span class="tag">2026</span>
+                    <span class="tag">July</span>
+                </div>
+                <img class="banner-image" 
+     src="/assets/images/banners/GameNight_9.2.Screenie.png" 
+     data-alt-src="/assets/images/banners/GameNight_9.2.Thumbnail.png">
+                <div class="card">
+                    <h3 class="card-button-title">Download Map</h3>
+                    <a href="https://github.com/BedrockCommands/community/releases/download/game-night-9/skyblock_randomizer.mcworld" 
+                    class="stretched-link" 
+                    target="_blank" 
+                    rel="noopener noreferrer">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="banner" data-year="2026">
+        <div class="banner-inner">
+            <div class="banner-front">
+            <img class="banner-logo" src="/assets/images/banners/GameNight_9.Logo.webp">
+                <span class="banner-game-title">Villager Catcher</span>
+                <span class="banner-game-author">By @oyakodon_yuugen</span>
+                <div class="tags">
+                    <span class="tag">2026</span>
+                    <span class="tag">July</span>
+                </div>
+                <img class="banner-image" 
+     src="/assets/images/banners/GameNight_9.Screenie.png" 
+     data-alt-src="/assets/images/banners/GameNight_9.Thumbnail.png">
+                <div class="card">
+                    <h3 class="card-button-title">Download Map</h3>
+                    <a href="https://github.com/BedrockCommands/community/releases/download/game-night-9/villager_catcher.mcworld" 
+                    class="stretched-link" 
+                    target="_blank" 
+                    rel="noopener noreferrer">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="banner" data-year="2026">
+        <div class="banner-inner">
+            <div class="banner-front">
             <img class="banner-logo" src="/assets/images/banners/GameNight_8.Logo.webp">
                 <span class="banner-game-title">LCE Battle Remake</span>
                 <span class="banner-game-author">By @zheaevyline & Team</span>
@@ -52,7 +102,12 @@ description: >-
      src="/assets/images/banners/GameNight_8.Screenie.png" 
      data-alt-src="/assets/images/banners/GameNight_8.Thumbnail.png">
                 <div class="card">
-                    <h3 class="card-button-title">Coming Soon</h3>
+                    <h3 class="card-button-title">Friend Server Bot</h3>
+                    <a href="https://www.xbox.com/en-US/play/user/bcctransfer" 
+                    class="stretched-link" 
+                    target="_blank" 
+                    rel="noopener noreferrer">
+                    </a>
                 </div>
             </div>
         </div>
