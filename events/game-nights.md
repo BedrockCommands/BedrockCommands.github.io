@@ -41,6 +41,31 @@ description: >-
 <div class="banner" data-year="2026">
         <div class="banner-inner">
             <div class="banner-front">
+            <img class="banner-logo" src="/assets/images/banners/GameNight_10.Logo.png ">
+                <span class="banner-game-title">Bedrock Lockout</span>
+                <span class="banner-game-author">By @ma_ehy</span>
+                <div class="tags">
+                    <span class="tag">2026</span>
+                    <span class="tag">July</span>
+                </div>
+                <img class="banner-image" 
+     src="/assets/images/banners/GameNight_10.Screenie.png" 
+     data-alt-src="/assets/images/banners/GameNight_10.Thumbnail.png">
+                <div class="card">
+                    <h3 class="card-button-title">Download Add-On</h3>
+                    <a href="https://www.curseforge.com/minecraft-bedrock/addons/bedrock-lockout" 
+                    class="stretched-link" 
+                    target="_blank" 
+                    rel="noopener noreferrer">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="banner" data-year="2026">
+        <div class="banner-inner">
+            <div class="banner-front">
             <img class="banner-logo" src="/assets/images/banners/GameNight_9.2.Logo.webp">
                 <span class="banner-game-title">Skyblock Randomizer</span>
                 <span class="banner-game-author">By @corruptick_</span>
